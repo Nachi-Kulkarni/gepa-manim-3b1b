@@ -1,0 +1,9 @@
+Video Number: 46
+Video ID: wjZofJX0v4M
+Title: Transformers, the tech behind LLMs | Deep Learning Chapter 5
+URL: https://www.youtube.com/watch?v=wjZofJX0v4M
+Published: 2024-04-01T19:13:57Z
+Code Files: 1
+Transcript Length: 29115 characters
+Date Score: 155
+Quality Score: 30270

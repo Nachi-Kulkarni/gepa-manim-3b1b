@@ -1,0 +1,9 @@
+Video Number: 89
+Video ID: IaSGqQa5O-M
+Title: Convolutions | Why X+Y in probability is a beautiful mess
+URL: https://www.youtube.com/watch?v=IaSGqQa5O-M
+Published: 2023-06-27T15:08:14Z
+Code Files: 1
+Transcript Length: 28138 characters
+Date Score: 127
+Quality Score: 29265

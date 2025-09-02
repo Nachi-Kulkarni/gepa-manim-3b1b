@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+venv_new/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+*.log
+*.tmp
+*.temp
+
+# API Keys and secrets
+.env
+.env.local
+.env.*.local
+config/secrets.json
+**/api_keys.json
+
+# Training results and datasets
+training_results/
+dataset/splits/
+*.pkl
+*.pickle
+
+# Manim output
+media/
+animations/
+images/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Model files
+*.pt
+*.pth
+*.onnx
+*.h5
+
+# Large data files
+*.csv
+*.json.bz2
+*.tar.gz
+*.zip
+
+# Embedded git repositories (keep as regular directories)
+manim_codes_vids/
+
+# Temporary directories
+tmp/
+temp/
+cache/
+
+# Training logs
+logs/

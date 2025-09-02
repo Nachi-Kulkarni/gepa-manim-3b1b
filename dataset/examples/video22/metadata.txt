@@ -1,0 +1,9 @@
+Video Number: 45
+Video ID: eMlx5fFNoYc
+Title: Attention in transformers, step-by-step | Deep Learning Chapter 6
+URL: https://www.youtube.com/watch?v=eMlx5fFNoYc
+Published: 2024-04-07T12:53:54Z
+Code Files: 1
+Transcript Length: 27763 characters
+Date Score: 155
+Quality Score: 28918

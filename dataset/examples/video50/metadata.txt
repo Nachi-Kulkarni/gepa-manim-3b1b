@@ -1,0 +1,9 @@
+Video Number: 101
+Video ID: LqbZpur38nw
+Title: Beyond the Mandelbrot set, an intro to holomorphic dynamics
+URL: https://www.youtube.com/watch?v=LqbZpur38nw
+Published: 2021-10-16T12:39:12Z
+Code Files: 1
+Transcript Length: 28855 characters
+Date Score: 65
+Quality Score: 29920

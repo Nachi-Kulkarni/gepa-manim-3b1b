@@ -1,0 +1,9 @@
+Video Number: 108
+Video ID: X8jsijhllIA
+Title: But what are Hamming codes? The origin of error correction
+URL: https://www.youtube.com/watch?v=X8jsijhllIA
+Published: 2020-09-04T15:32:50Z
+Code Files: 2
+Transcript Length: 20592 characters
+Date Score: 24
+Quality Score: 22616

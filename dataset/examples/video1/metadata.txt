@@ -1,0 +1,9 @@
+Video Number: 3
+Video ID: RQWpF2Gb-gU
+Title: But what is quantum computing?  (Grover's Algorithm)
+URL: https://www.youtube.com/watch?v=RQWpF2Gb-gU
+Published: 2025-04-30T12:32:19Z
+Code Files: 2
+Transcript Length: 41822 characters
+Date Score: 194
+Quality Score: 44016

@@ -1,0 +1,252 @@
+3Blue1Brown Dataset Summary
+===========================
+
+Total Examples Created: 120
+Videos Processed: 214
+Success Rate: 56.1%
+
+TOP 30 EXAMPLES BY QUALITY SCORE:
+(Quality Score = Code Files × 1000 + Transcript Length)
+
+1. [Score: 77014] Intuition for i to the power i | Ep. 9 Lockdown live math
+   Code Files: 2, Transcript: 75001 chars
+   📁 video59
+
+2. [Score: 73558] What makes the natural log "natural"? | Ep. 7 Lockdown live math
+   Code Files: 1, Transcript: 72546 chars
+   📁 video62
+
+3. [Score: 55330] The power tower puzzle | Ep. 8 Lockdown live math
+   Code Files: 2, Transcript: 53317 chars
+   📁 video61
+
+4. [Score: 52668] The simpler quadratic formula | Ep. 1 Lockdown live math
+   Code Files: 1, Transcript: 51658 chars
+   📁 video64
+
+5. [Score: 44016] But what is quantum computing?  (Grover's Algorithm)
+   Code Files: 2, Transcript: 41822 chars
+   📁 video1
+
+6. [Score: 39174] Olympiad level counting  (Generating functions)
+   Code Files: 1, Transcript: 38087 chars
+   📁 video49
+
+7. [Score: 36772] But what is the Central Limit Theorem?
+   Code Files: 2, Transcript: 34656 chars
+   📁 video46
+
+8. [Score: 34774] Five puzzles for thinking outside the box
+   Code Files: 2, Transcript: 32597 chars
+   📁 video19
+
+9. [Score: 33215] But why would light "slow down"? | Visualizing Feynman's lecture on the refractive index
+   Code Files: 2, Transcript: 31073 chars
+   📁 video43
+
+10. [Score: 31130] This open problem taught me what topology is
+   Code Files: 1, Transcript: 29949 chars
+   📁 video10
+
+11. [Score: 30325] Newton’s fractal (which Newton knew nothing about)
+   Code Files: 2, Transcript: 28260 chars
+   📁 video51
+
+12. [Score: 30270] Transformers, the tech behind LLMs | Deep Learning Chapter 5
+   Code Files: 1, Transcript: 29115 chars
+   📁 video23
+
+13. [Score: 29920] Beyond the Mandelbrot set, an intro to holomorphic dynamics
+   Code Files: 1, Transcript: 28855 chars
+   📁 video50
+
+14. [Score: 29265] Convolutions | Why X+Y in probability is a beautiful mess
+   Code Files: 1, Transcript: 28138 chars
+   📁 video45
+
+15. [Score: 28918] Attention in transformers, step-by-step | Deep Learning Chapter 6
+   Code Files: 1, Transcript: 27763 chars
+   📁 video22
+
+16. [Score: 27816] How (and why) to raise e to the power of a matrix | DE6
+   Code Files: 2, Transcript: 25771 chars
+   📁 video53
+
+17. [Score: 27793] But what is a convolution?
+   Code Files: 2, Transcript: 25688 chars
+   📁 video47
+
+18. [Score: 27005] Complex number fundamentals | Ep. 3 Lockdown live math
+   Code Files: 1, Transcript: 25994 chars
+   📁 video63
+
+19. [Score: 26679] But what is a Fourier series?  From heat flow to drawing with circles | DE4
+   Code Files: 2, Transcript: 24679 chars
+   📁 video73
+
+20. [Score: 26636] But how does bitcoin actually work?
+   Code Files: 2, Transcript: 24636 chars
+   📁 video94
+
+21. [Score: 25663] The Wallis product for pi, proved geometrically
+   Code Files: 1, Transcript: 24663 chars
+   📁 video83
+
+22. [Score: 25596] Some light quantum mechanics (with minutephysics)
+   Code Files: 2, Transcript: 23596 chars
+   📁 video91
+
+23. [Score: 25546] Winding numbers and domain coloring
+   Code Files: 2, Transcript: 23546 chars
+   📁 video84
+
+24. [Score: 24208] Thinking outside the 10-dimensional box
+   Code Files: 1, Transcript: 23208 chars
+   📁 video92
+
+25. [Score: 24174] The medical test paradox, and redesigning Bayes' rule
+   Code Files: 2, Transcript: 22139 chars
+   📁 video54
+
+26. [Score: 24143] Group theory, abstraction, and the 196,883-dimensional monster
+   Code Files: 2, Transcript: 22120 chars
+   📁 video57
+
+27. [Score: 22616] But what are Hamming codes? The origin of error correction
+   Code Files: 2, Transcript: 20592 chars
+   📁 video56
+
+28. [Score: 22228] Why do prime numbers make these spirals? | Dirichlet’s theorem and pi approximations
+   Code Files: 1, Transcript: 21228 chars
+   📁 video70
+
+29. [Score: 21720] But what is the Riemann zeta function? Visualizing analytic continuation
+   Code Files: 2, Transcript: 19720 chars
+   📁 video101
+
+30. [Score: 21339] But what is the Fourier Transform?  A visual introduction.
+   Code Files: 2, Transcript: 19339 chars
+   📁 video86
+
+
+ALL EXAMPLES (sorted by quality):
+video59: 77014 (2 code, 75001 chars)
+video62: 73558 (1 code, 72546 chars)
+video61: 55330 (2 code, 53317 chars)
+video64: 52668 (1 code, 51658 chars)
+video1: 44016 (2 code, 41822 chars)
+video49: 39174 (1 code, 38087 chars)
+video46: 36772 (2 code, 34656 chars)
+video19: 34774 (2 code, 32597 chars)
+video43: 33215 (2 code, 31073 chars)
+video10: 31130 (1 code, 29949 chars)
+video51: 30325 (2 code, 28260 chars)
+video23: 30270 (1 code, 29115 chars)
+video50: 29920 (1 code, 28855 chars)
+video45: 29265 (1 code, 28138 chars)
+video22: 28918 (1 code, 27763 chars)
+video53: 27816 (2 code, 25771 chars)
+video47: 27793 (2 code, 25688 chars)
+video63: 27005 (1 code, 25994 chars)
+video73: 26679 (2 code, 24679 chars)
+video94: 26636 (2 code, 24636 chars)
+video83: 25663 (1 code, 24663 chars)
+video91: 25596 (2 code, 23596 chars)
+video84: 25546 (2 code, 23546 chars)
+video92: 24208 (1 code, 23208 chars)
+video54: 24174 (2 code, 22139 chars)
+video57: 24143 (2 code, 22120 chars)
+video56: 22616 (2 code, 20592 chars)
+video70: 22228 (1 code, 21228 chars)
+video101: 21720 (2 code, 19720 chars)
+video86: 21339 (2 code, 19339 chars)
+video79: 20911 (2 code, 18911 chars)
+video96: 20632 (2 code, 18632 chars)
+video48: 20456 (1 code, 19365 chars)
+video90: 20430 (2 code, 18430 chars)
+video100: 20164 (1 code, 19164 chars)
+video87: 19901 (1 code, 18901 chars)
+video75: 19834 (2 code, 17834 chars)
+video58: 19726 (1 code, 18708 chars)
+video85: 19359 (1 code, 18359 chars)
+video44: 18184 (1 code, 17057 chars)
+video55: 18036 (2 code, 16012 chars)
+video81: 17818 (2 code, 15818 chars)
+video98: 17751 (2 code, 15751 chars)
+video93: 17509 (1 code, 16509 chars)
+video78: 17029 (2 code, 15029 chars)
+video99: 16797 (1 code, 15797 chars)
+video105: 16612 (2 code, 14612 chars)
+video104: 16580 (2 code, 14580 chars)
+video71: 16543 (1 code, 15543 chars)
+video69: 16440 (1 code, 15440 chars)
+video115: 15985 (1 code, 14985 chars)
+video74: 15632 (1 code, 14632 chars)
+video106: 15248 (2 code, 13248 chars)
+video102: 15039 (2 code, 13039 chars)
+video103: 15039 (2 code, 13039 chars)
+video82: 15009 (1 code, 14009 chars)
+video76: 14975 (1 code, 13975 chars)
+video97: 14489 (1 code, 13489 chars)
+video95: 14327 (1 code, 13327 chars)
+video52: 14051 (1 code, 13002 chars)
+video117: 13662 (2 code, 11662 chars)
+video89: 12367 (1 code, 11367 chars)
+video110: 12342 (2 code, 10342 chars)
+video109: 11531 (2 code, 9531 chars)
+video112: 11194 (1 code, 10194 chars)
+video107: 10744 (1 code, 9744 chars)
+video66: 10395 (1 code, 9385 chars)
+video111: 10382 (1 code, 9382 chars)
+video67: 10362 (2 code, 8356 chars)
+video119: 9146 (2 code, 7146 chars)
+video114: 8919 (1 code, 7919 chars)
+video80: 8493 (2 code, 6493 chars)
+video120: 7691 (1 code, 6691 chars)
+video77: 7002 (2 code, 5002 chars)
+video113: 6373 (1 code, 5373 chars)
+video15: 5603 (2 code, 3425 chars)
+video60: 5346 (1 code, 4333 chars)
+video68: 5318 (2 code, 3318 chars)
+video108: 5184 (1 code, 4184 chars)
+video8: 4607 (1 code, 3424 chars)
+video88: 4172 (2 code, 2172 chars)
+video18: 4116 (1 code, 2939 chars)
+video16: 3951 (1 code, 2773 chars)
+video2: 3826 (1 code, 2634 chars)
+video65: 3451 (1 code, 2441 chars)
+video30: 3369 (2 code, 1224 chars)
+video7: 3319 (1 code, 2134 chars)
+video21: 3316 (2 code, 1160 chars)
+video32: 3298 (2 code, 1153 chars)
+video38: 3279 (2 code, 1136 chars)
+video5: 3278 (1 code, 2090 chars)
+video29: 3246 (2 code, 1100 chars)
+video35: 3174 (2 code, 1030 chars)
+video33: 3116 (2 code, 971 chars)
+video20: 3083 (2 code, 923 chars)
+video13: 3068 (1 code, 1890 chars)
+video3: 3044 (1 code, 1852 chars)
+video26: 3036 (2 code, 889 chars)
+video11: 2974 (1 code, 1796 chars)
+video6: 2703 (1 code, 1517 chars)
+video14: 2697 (1 code, 1519 chars)
+video34: 2303 (1 code, 1159 chars)
+video4: 2235 (1 code, 1044 chars)
+video17: 2234 (1 code, 1057 chars)
+video24: 2228 (1 code, 1080 chars)
+video25: 2225 (1 code, 1077 chars)
+video28: 2203 (1 code, 1056 chars)
+video41: 2153 (1 code, 1010 chars)
+video27: 2135 (1 code, 988 chars)
+video9: 2131 (1 code, 950 chars)
+video42: 2119 (1 code, 976 chars)
+video40: 2096 (1 code, 953 chars)
+video37: 2040 (1 code, 896 chars)
+video116: 2011 (2 code, 11 chars)
+video31: 1995 (1 code, 850 chars)
+video36: 1944 (1 code, 800 chars)
+video39: 1837 (1 code, 694 chars)
+video12: 1639 (1 code, 461 chars)
+video72: 1045 (1 code, 45 chars)
+video118: 1027 (1 code, 27 chars)

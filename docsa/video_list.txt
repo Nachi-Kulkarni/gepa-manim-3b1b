@@ -1,0 +1,1073 @@
+CHANNEL VIDEO LIST
+============================================================
+
+  1. Summer of Math Exposition #4 | Teachers, I'd love to hear from you
+     ID: 3foYyPDp0Ho
+     URL: https://www.youtube.com/watch?v=3foYyPDp0Ho
+     Published: 2025-05-05T15:00:08Z
+------------------------------------------------------------
+  2. Where my explanation of Grover’s algorithm failed
+     ID: Dlsa9EBKDGI
+     URL: https://www.youtube.com/watch?v=Dlsa9EBKDGI
+     Published: 2025-05-04T11:45:24Z
+------------------------------------------------------------
+  3. But what is quantum computing?  (Grover's Algorithm)
+     ID: RQWpF2Gb-gU
+     URL: https://www.youtube.com/watch?v=RQWpF2Gb-gU
+     Published: 2025-04-30T12:32:19Z
+------------------------------------------------------------
+  4. Testing your intuition for quantum computing
+     ID: XX8mjBXBqz8
+     URL: https://www.youtube.com/watch?v=XX8mjBXBqz8
+     Published: 2025-04-30T12:32:13Z
+------------------------------------------------------------
+  5. How to measure nearby galaxies
+     ID: aQwEJKWATlE
+     URL: https://www.youtube.com/watch?v=aQwEJKWATlE
+     Published: 2025-04-20T19:36:10Z
+------------------------------------------------------------
+  6. Measuring the distance to Venus without radar
+     ID: aw-8BhCilj0
+     URL: https://www.youtube.com/watch?v=aw-8BhCilj0
+     Published: 2025-04-08T13:45:00Z
+------------------------------------------------------------
+  7. Measuring the speed of light using Jupiter's moons
+     ID: M6LUPYsjods
+     URL: https://www.youtube.com/watch?v=M6LUPYsjods
+     Published: 2025-04-07T15:57:13Z
+------------------------------------------------------------
+  8. The tragic tale of Guillaume Le Gentil
+     ID: mHya9J9pkq4
+     URL: https://www.youtube.com/watch?v=mHya9J9pkq4
+     Published: 2025-03-27T16:01:04Z
+------------------------------------------------------------
+  9. Zooming out by powers of 10
+     ID: C8baNzpnZ7o
+     URL: https://www.youtube.com/watch?v=C8baNzpnZ7o
+     Published: 2025-03-26T18:37:29Z
+------------------------------------------------------------
+ 10. There's more to those colliding blocks that compute pi
+     ID: 6dTyOl1fmDo
+     URL: https://www.youtube.com/watch?v=6dTyOl1fmDo
+     Published: 2025-03-13T15:36:52Z
+------------------------------------------------------------
+ 11. When being beautifully wrong leads to discovery
+     ID: TZAC0WFemvE
+     URL: https://www.youtube.com/watch?v=TZAC0WFemvE
+     Published: 2025-02-28T15:00:44Z
+------------------------------------------------------------
+ 12. Why the ancient Greeks rejected heliocentrism
+     ID: YP1mMXRCnaI
+     URL: https://www.youtube.com/watch?v=YP1mMXRCnaI
+     Published: 2025-02-27T15:00:48Z
+------------------------------------------------------------
+ 13. How to estimate the distance to the sun
+     ID: gzbFNnTCkqQ
+     URL: https://www.youtube.com/watch?v=gzbFNnTCkqQ
+     Published: 2025-02-26T15:01:03Z
+------------------------------------------------------------
+ 14. How Aristarchus deduced the distance to the moon
+     ID: drmphB3rdHY
+     URL: https://www.youtube.com/watch?v=drmphB3rdHY
+     Published: 2025-02-25T15:00:57Z
+------------------------------------------------------------
+ 15. How to measure the universe | The Cosmic Distance Ladder Part 2
+     ID: hFMaT9oRbs4
+     URL: https://www.youtube.com/watch?v=hFMaT9oRbs4
+     Published: 2025-02-23T14:54:42Z
+------------------------------------------------------------
+ 16. How Earth's size was computed by Eratosthenes
+     ID: 9s0srZneJ38
+     URL: https://www.youtube.com/watch?v=9s0srZneJ38
+     Published: 2025-02-12T15:00:17Z
+------------------------------------------------------------
+ 17. Terence Tao on how we measure the cosmos | The Distance Ladder Part 1
+     ID: YdOXS_9_P4U
+     URL: https://www.youtube.com/watch?v=YdOXS_9_P4U
+     Published: 2025-02-08T13:35:15Z
+------------------------------------------------------------
+ 18. Measuring the earth with Terence Tao
+     ID: uT4-WVa-YfU
+     URL: https://www.youtube.com/watch?v=uT4-WVa-YfU
+     Published: 2025-02-08T13:35:06Z
+------------------------------------------------------------
+ 19. The topology of two-note chords
+     ID: K-pGGb0f3tc
+     URL: https://www.youtube.com/watch?v=K-pGGb0f3tc
+     Published: 2025-01-30T15:00:25Z
+------------------------------------------------------------
+ 20. The barber pole optical mystery
+     ID: 0TdBP9m4R74
+     URL: https://www.youtube.com/watch?v=0TdBP9m4R74
+     Published: 2025-01-06T15:37:38Z
+------------------------------------------------------------
+ 21. Monge's Theorem
+     ID: zxOK2vKVfQM
+     URL: https://www.youtube.com/watch?v=zxOK2vKVfQM
+     Published: 2024-12-29T16:00:54Z
+------------------------------------------------------------
+ 22. Thinking through double slits
+     ID: DgMhayP2NPU
+     URL: https://www.youtube.com/watch?v=DgMhayP2NPU
+     Published: 2024-12-26T16:48:04Z
+------------------------------------------------------------
+ 23. The inscribed square problem
+     ID: LuVUnd0C07U
+     URL: https://www.youtube.com/watch?v=LuVUnd0C07U
+     Published: 2024-12-24T18:46:12Z
+------------------------------------------------------------
+ 24. This open problem taught me what topology is
+     ID: IQqtsm-bBRU
+     URL: https://www.youtube.com/watch?v=IQqtsm-bBRU
+     Published: 2024-12-24T17:50:32Z
+------------------------------------------------------------
+ 25. The meaning within the Mandelbrot set
+     ID: y9BK--OxZpY
+     URL: https://www.youtube.com/watch?v=y9BK--OxZpY
+     Published: 2024-11-24T17:00:57Z
+------------------------------------------------------------
+ 26. The scale of training LLMs
+     ID: qSn8dVI9V5I
+     URL: https://www.youtube.com/watch?v=qSn8dVI9V5I
+     Published: 2024-11-20T15:07:29Z
+------------------------------------------------------------
+ 27. Large Language Models explained briefly
+     ID: LPZh9BOjkQs
+     URL: https://www.youtube.com/watch?v=LPZh9BOjkQs
+     Published: 2024-11-20T15:07:15Z
+------------------------------------------------------------
+ 28. This puzzle is trickier than it seems
+     ID: nAT-MCsJeik
+     URL: https://www.youtube.com/watch?v=nAT-MCsJeik
+     Published: 2024-11-19T19:06:45Z
+------------------------------------------------------------
+ 29. Sphere surface area proof sketch
+     ID: EPDZTLavmcg
+     URL: https://www.youtube.com/watch?v=EPDZTLavmcg
+     Published: 2024-11-17T16:00:10Z
+------------------------------------------------------------
+ 30. Newton’s Fractal is beautiful
+     ID: LOulCFdVOGY
+     URL: https://www.youtube.com/watch?v=LOulCFdVOGY
+     Published: 2024-11-16T16:53:52Z
+------------------------------------------------------------
+ 31. The Triangle Of Power
+     ID: JNVZK4ofW-Y
+     URL: https://www.youtube.com/watch?v=JNVZK4ofW-Y
+     Published: 2024-11-15T15:58:23Z
+------------------------------------------------------------
+ 32. The twirling tiles puzzle
+     ID: 0W243LGSJFU
+     URL: https://www.youtube.com/watch?v=0W243LGSJFU
+     Published: 2024-11-13T18:01:06Z
+------------------------------------------------------------
+ 33. A bizarre probability fact
+     ID: Pny70rNPJLk
+     URL: https://www.youtube.com/watch?v=Pny70rNPJLk
+     Published: 2024-11-12T23:09:05Z
+------------------------------------------------------------
+ 34. Five puzzles for thinking outside the box
+     ID: piJkuavhV50
+     URL: https://www.youtube.com/watch?v=piJkuavhV50
+     Published: 2024-11-08T13:34:50Z
+------------------------------------------------------------
+ 35. LLMs are next-word predictors
+     ID: KHEtJUlpqcg
+     URL: https://www.youtube.com/watch?v=KHEtJUlpqcg
+     Published: 2024-11-04T15:24:37Z
+------------------------------------------------------------
+ 36. How I animate 3Blue1Brown | A Manim demo with Ben Sparks
+     ID: rbu7Zu5X1zI
+     URL: https://www.youtube.com/watch?v=rbu7Zu5X1zI
+     Published: 2024-10-12T13:00:39Z
+------------------------------------------------------------
+ 37. Hologram preview
+     ID: W3-kpRz-e1Q
+     URL: https://www.youtube.com/watch?v=W3-kpRz-e1Q
+     Published: 2024-10-11T14:00:27Z
+------------------------------------------------------------
+ 38. Holograms are wild (full video linked above)
+     ID: DnjATyPuFFk
+     URL: https://www.youtube.com/watch?v=DnjATyPuFFk
+     Published: 2024-10-05T15:35:00Z
+------------------------------------------------------------
+ 39. How are holograms possible?
+     ID: EmKQsSDlaa4
+     URL: https://www.youtube.com/watch?v=EmKQsSDlaa4
+     Published: 2024-10-05T15:31:58Z
+------------------------------------------------------------
+ 40. How might LLMs store facts | Deep Learning Chapter 7
+     ID: 9-Jl0dxWQs8
+     URL: https://www.youtube.com/watch?v=9-Jl0dxWQs8
+     Published: 2024-08-31T12:11:19Z
+------------------------------------------------------------
+ 41. In the vector space of all advice...
+     ID: rjVY7HXN6qA
+     URL: https://www.youtube.com/watch?v=rjVY7HXN6qA
+     Published: 2024-05-22T17:56:07Z
+------------------------------------------------------------
+ 42. What "Follow Your Dreams" Misses | Harvey Mudd Commencement Speech 2024
+     ID: W3I3kAg2J7w
+     URL: https://www.youtube.com/watch?v=W3I3kAg2J7w
+     Published: 2024-05-18T14:50:47Z
+------------------------------------------------------------
+ 43. Temperature in LLMs
+     ID: XsLK3tPy9SI
+     URL: https://www.youtube.com/watch?v=XsLK3tPy9SI
+     Published: 2024-04-28T15:22:38Z
+------------------------------------------------------------
+ 44. How word vectors encode meaning
+     ID: FJtFZwbvkI4
+     URL: https://www.youtube.com/watch?v=FJtFZwbvkI4
+     Published: 2024-04-11T16:23:26Z
+------------------------------------------------------------
+ 45. Attention in transformers, step-by-step | Deep Learning Chapter 6
+     ID: eMlx5fFNoYc
+     URL: https://www.youtube.com/watch?v=eMlx5fFNoYc
+     Published: 2024-04-07T12:53:54Z
+------------------------------------------------------------
+ 46. Transformers, the tech behind LLMs | Deep Learning Chapter 5
+     ID: wjZofJX0v4M
+     URL: https://www.youtube.com/watch?v=wjZofJX0v4M
+     Published: 2024-04-01T19:13:57Z
+------------------------------------------------------------
+ 47. Simulating the electric field and a moving charge
+     ID: 81QNyDnYtg0
+     URL: https://www.youtube.com/watch?v=81QNyDnYtg0
+     Published: 2024-01-26T06:00:04Z
+------------------------------------------------------------
+ 48. A challenging puzzle about subset sums
+     ID: -ikRg-OfFHc
+     URL: https://www.youtube.com/watch?v=-ikRg-OfFHc
+     Published: 2024-01-22T06:00:00Z
+------------------------------------------------------------
+ 49. Ellipses have multiple definitions, how are these the same?
+     ID: -3jPW_TGATI
+     URL: https://www.youtube.com/watch?v=-3jPW_TGATI
+     Published: 2024-01-19T19:00:00Z
+------------------------------------------------------------
+ 50. Three levels of understanding Bayes' theorem
+     ID: w-CXIqIjfRI
+     URL: https://www.youtube.com/watch?v=w-CXIqIjfRI
+     Published: 2024-01-17T07:00:31Z
+------------------------------------------------------------
+ 51. The medical test paradox (well "paradox")
+     ID: xIMlJUwB1m8
+     URL: https://www.youtube.com/watch?v=xIMlJUwB1m8
+     Published: 2024-01-15T07:00:30Z
+------------------------------------------------------------
+ 52. Positioned as the hardest question on a Putnam exam  (#6, 1992)
+     ID: IstyL9vnybg
+     URL: https://www.youtube.com/watch?v=IstyL9vnybg
+     Published: 2024-01-12T07:00:13Z
+------------------------------------------------------------
+ 53. Why does light slowing imply a bend? (Beyond the tank/car analogy)
+     ID: DWnb2UUlqd0
+     URL: https://www.youtube.com/watch?v=DWnb2UUlqd0
+     Published: 2024-01-11T00:00:11Z
+------------------------------------------------------------
+ 54. The cube shadow puzzle
+     ID: U3O1nzSojnc
+     URL: https://www.youtube.com/watch?v=U3O1nzSojnc
+     Published: 2024-01-09T17:15:05Z
+------------------------------------------------------------
+ 55. What does it mean that light "slows down" in glass?
+     ID: XIW-2ykgVPI
+     URL: https://www.youtube.com/watch?v=XIW-2ykgVPI
+     Published: 2024-01-08T07:00:19Z
+------------------------------------------------------------
+ 56. Why do we call them "scalars"?
+     ID: vItzPPpNXEs
+     URL: https://www.youtube.com/watch?v=vItzPPpNXEs
+     Published: 2024-01-06T00:00:33Z
+------------------------------------------------------------
+ 57. A beautiful international math olympiad problem
+     ID: teYL0Er4c3g
+     URL: https://www.youtube.com/watch?v=teYL0Er4c3g
+     Published: 2024-01-03T07:00:30Z
+------------------------------------------------------------
+ 58. Definition of a "bit", in information theory
+     ID: BTryyW7gqg4
+     URL: https://www.youtube.com/watch?v=BTryyW7gqg4
+     Published: 2024-01-02T00:00:09Z
+------------------------------------------------------------
+ 59. The Newton art puzzle
+     ID: kpG7I2MOcnI
+     URL: https://www.youtube.com/watch?v=kpG7I2MOcnI
+     Published: 2023-12-29T19:00:32Z
+------------------------------------------------------------
+ 60. What is a group?
+     ID: 3KbiJ-z0j44
+     URL: https://www.youtube.com/watch?v=3KbiJ-z0j44
+     Published: 2023-12-27T19:00:01Z
+------------------------------------------------------------
+ 61. How to derive a formula for π
+     ID: R1e7aHBKLnM
+     URL: https://www.youtube.com/watch?v=R1e7aHBKLnM
+     Published: 2023-12-25T19:00:15Z
+------------------------------------------------------------
+ 62. The limit of limiting arguments
+     ID: tjIOqIr80ns
+     URL: https://www.youtube.com/watch?v=tjIOqIr80ns
+     Published: 2023-12-23T00:00:26Z
+------------------------------------------------------------
+ 63. For anyone who might not know how links in shorts work
+     ID: W1gW1dHRsOw
+     URL: https://www.youtube.com/watch?v=W1gW1dHRsOw
+     Published: 2023-12-21T00:15:02Z
+------------------------------------------------------------
+ 64. Infinite Lighthouses and π
+     ID: p9i3cYMQtBY
+     URL: https://www.youtube.com/watch?v=p9i3cYMQtBY
+     Published: 2023-12-21T00:00:20Z
+------------------------------------------------------------
+ 65. Can you even imagine 2^256?
+     ID: X4jpqCu-wlA
+     URL: https://www.youtube.com/watch?v=X4jpqCu-wlA
+     Published: 2023-12-16T00:00:24Z
+------------------------------------------------------------
+ 66. Order from chaos
+     ID: GOSezO0CHss
+     URL: https://www.youtube.com/watch?v=GOSezO0CHss
+     Published: 2023-12-15T00:00:13Z
+------------------------------------------------------------
+ 67. A short on shorts
+     ID: TaopSi3Ucfc
+     URL: https://www.youtube.com/watch?v=TaopSi3Ucfc
+     Published: 2023-12-13T00:00:09Z
+------------------------------------------------------------
+ 68. A pretty way to add weighted dice
+     ID: BIbHGfdjc_g
+     URL: https://www.youtube.com/watch?v=BIbHGfdjc_g
+     Published: 2023-12-12T00:00:07Z
+------------------------------------------------------------
+ 69. A simple image convolution
+     ID: 4xWpQe3G9qI
+     URL: https://www.youtube.com/watch?v=4xWpQe3G9qI
+     Published: 2023-12-12T00:00:03Z
+------------------------------------------------------------
+ 70. These integrals all equal π, until...
+     ID: VS9yOhwtVDY
+     URL: https://www.youtube.com/watch?v=VS9yOhwtVDY
+     Published: 2023-12-11T00:00:18Z
+------------------------------------------------------------
+ 71. The split necklace puzzle (with a surprise topological solution)
+     ID: Cm-zmm0nANo
+     URL: https://www.youtube.com/watch?v=Cm-zmm0nANo
+     Published: 2023-12-11T00:00:07Z
+------------------------------------------------------------
+ 72. Error correction is incredible
+     ID: yZMw2rOKYwE
+     URL: https://www.youtube.com/watch?v=yZMw2rOKYwE
+     Published: 2023-12-10T00:00:26Z
+------------------------------------------------------------
+ 73. The chessboard and coins puzzle
+     ID: NQFIU5Exjuo
+     URL: https://www.youtube.com/watch?v=NQFIU5Exjuo
+     Published: 2023-12-10T00:00:10Z
+------------------------------------------------------------
+ 74. Prime spirals
+     ID: h2V3r7oBeMI
+     URL: https://www.youtube.com/watch?v=h2V3r7oBeMI
+     Published: 2023-12-09T00:00:19Z
+------------------------------------------------------------
+ 75. The barber pole effect
+     ID: 31xm81m0iYs
+     URL: https://www.youtube.com/watch?v=31xm81m0iYs
+     Published: 2023-12-09T00:00:02Z
+------------------------------------------------------------
+ 76. Fourier series
+     ID: nXIHYB0Gp70
+     URL: https://www.youtube.com/watch?v=nXIHYB0Gp70
+     Published: 2023-12-08T00:00:22Z
+------------------------------------------------------------
+ 77. Seeing with sound
+     ID: 1tLvj_HSjPk
+     URL: https://www.youtube.com/watch?v=1tLvj_HSjPk
+     Published: 2023-12-08T00:00:02Z
+------------------------------------------------------------
+ 78. How prisms work (full video linked above)
+     ID: GSIuXqgPsnY
+     URL: https://www.youtube.com/watch?v=GSIuXqgPsnY
+     Published: 2023-12-07T01:31:43Z
+------------------------------------------------------------
+ 79. I'm still astounded this is true
+     ID: P11ykXwx4-k
+     URL: https://www.youtube.com/watch?v=P11ykXwx4-k
+     Published: 2023-12-07T01:11:14Z
+------------------------------------------------------------
+ 80. Don't let it fool you!
+     ID: VFbyGEZLMZw
+     URL: https://www.youtube.com/watch?v=VFbyGEZLMZw
+     Published: 2023-12-07T01:11:14Z
+------------------------------------------------------------
+ 81. Answering viewer questions about refraction
+     ID: Cz4Q4QOuoo8
+     URL: https://www.youtube.com/watch?v=Cz4Q4QOuoo8
+     Published: 2023-12-03T11:35:57Z
+------------------------------------------------------------
+ 82. But why would light "slow down"? | Visualizing Feynman's lecture on the refractive index
+     ID: KTzGBJPuJwM
+     URL: https://www.youtube.com/watch?v=KTzGBJPuJwM
+     Published: 2023-11-30T18:42:33Z
+------------------------------------------------------------
+ 83. 25 Math explainers you may enjoy | SoME3 results
+     ID: 6a1fLEToyvU
+     URL: https://www.youtube.com/watch?v=6a1fLEToyvU
+     Published: 2023-10-07T14:28:37Z
+------------------------------------------------------------
+ 84. How wiggling charges give rise to light
+     ID: aXRTczANuIs
+     URL: https://www.youtube.com/watch?v=aXRTczANuIs
+     Published: 2023-09-01T13:39:37Z
+------------------------------------------------------------
+ 85. This tests your understanding of light | The barber pole effect
+     ID: QCX62YJCmGk
+     URL: https://www.youtube.com/watch?v=QCX62YJCmGk
+     Published: 2023-09-01T13:13:14Z
+------------------------------------------------------------
+ 86. A pretty reason why Gaussian + Gaussian = Gaussian
+     ID: d_qvLDhkg00
+     URL: https://www.youtube.com/watch?v=d_qvLDhkg00
+     Published: 2023-07-11T15:53:09Z
+------------------------------------------------------------
+ 87. This pattern breaks, but for a good reason | Moser's circle problem
+     ID: YtkIWDE36qU
+     URL: https://www.youtube.com/watch?v=YtkIWDE36qU
+     Published: 2023-07-02T04:41:01Z
+------------------------------------------------------------
+ 88. How They Fool Ya (live) | Math parody of Hallelujah
+     ID: NOCsdhzo6Jg
+     URL: https://www.youtube.com/watch?v=NOCsdhzo6Jg
+     Published: 2023-06-28T19:17:11Z
+------------------------------------------------------------
+ 89. Convolutions | Why X+Y in probability is a beautiful mess
+     ID: IaSGqQa5O-M
+     URL: https://www.youtube.com/watch?v=IaSGqQa5O-M
+     Published: 2023-06-27T15:08:14Z
+------------------------------------------------------------
+ 90. Why π is in the normal distribution (beyond integral tricks)
+     ID: cy8r7WSuT1I
+     URL: https://www.youtube.com/watch?v=cy8r7WSuT1I
+     Published: 2023-04-02T15:30:13Z
+------------------------------------------------------------
+ 91. But what is the Central Limit Theorem?
+     ID: zeJD6dqJ5lo
+     URL: https://www.youtube.com/watch?v=zeJD6dqJ5lo
+     Published: 2023-03-14T18:36:36Z
+------------------------------------------------------------
+ 92. But what is a convolution?
+     ID: KuXjwB4LzSA
+     URL: https://www.youtube.com/watch?v=KuXjwB4LzSA
+     Published: 2022-11-18T16:00:39Z
+------------------------------------------------------------
+ 93. Researchers thought this was a bug (Borwein integrals)
+     ID: 851U557j6HE
+     URL: https://www.youtube.com/watch?v=851U557j6HE
+     Published: 2022-11-04T15:54:19Z
+------------------------------------------------------------
+ 94. What makes a great math explanation? | SoME2 results
+     ID: cDofhN-RJqg
+     URL: https://www.youtube.com/watch?v=cDofhN-RJqg
+     Published: 2022-10-01T19:23:52Z
+------------------------------------------------------------
+ 95. How to lie using visual proofs
+     ID: VYQVlVoWoPY
+     URL: https://www.youtube.com/watch?v=VYQVlVoWoPY
+     Published: 2022-07-03T15:03:56Z
+------------------------------------------------------------
+ 96. Olympiad level counting  (Generating functions)
+     ID: bOXCLR3Wric
+     URL: https://www.youtube.com/watch?v=bOXCLR3Wric
+     Published: 2022-05-23T15:55:10Z
+------------------------------------------------------------
+ 97. Oh, wait, actually the best Wordle opener is not “crane”…
+     ID: fRed0Xmc2Wg
+     URL: https://www.youtube.com/watch?v=fRed0Xmc2Wg
+     Published: 2022-02-13T18:33:24Z
+------------------------------------------------------------
+ 98. Solving Wordle using information theory
+     ID: v68zYyaEmEA
+     URL: https://www.youtube.com/watch?v=v68zYyaEmEA
+     Published: 2022-02-06T13:28:52Z
+------------------------------------------------------------
+ 99. A tale of two problem solvers | Average cube shadow area
+     ID: ltLUadnCyi0
+     URL: https://www.youtube.com/watch?v=ltLUadnCyi0
+     Published: 2021-12-20T15:02:30Z
+------------------------------------------------------------
+100. 2021 Summer of Math Exposition results
+     ID: F3Qixy-r_rQ
+     URL: https://www.youtube.com/watch?v=F3Qixy-r_rQ
+     Published: 2021-10-23T20:25:56Z
+------------------------------------------------------------
+101. Beyond the Mandelbrot set, an intro to holomorphic dynamics
+     ID: LqbZpur38nw
+     URL: https://www.youtube.com/watch?v=LqbZpur38nw
+     Published: 2021-10-16T12:39:12Z
+------------------------------------------------------------
+102. Newton’s fractal (which Newton knew nothing about)
+     ID: -RdOwhmqP5s
+     URL: https://www.youtube.com/watch?v=-RdOwhmqP5s
+     Published: 2021-10-12T18:57:07Z
+------------------------------------------------------------
+103. Make math videos! | Summer of Math Exposition announcement
+     ID: ojjzXyQCzso
+     URL: https://www.youtube.com/watch?v=ojjzXyQCzso
+     Published: 2021-07-16T18:39:08Z
+------------------------------------------------------------
+104. A quick trick for computing eigenvalues | Chapter 15, Essence of linear algebra
+     ID: e50Bj7jn9IQ
+     URL: https://www.youtube.com/watch?v=e50Bj7jn9IQ
+     Published: 2021-05-07T21:39:22Z
+------------------------------------------------------------
+105. How (and why) to raise e to the power of a matrix | DE6
+     ID: O85OWBJ2ayo
+     URL: https://www.youtube.com/watch?v=O85OWBJ2ayo
+     Published: 2021-04-01T15:50:30Z
+------------------------------------------------------------
+106. The medical test paradox, and redesigning Bayes' rule
+     ID: lG4VkPoG3ko
+     URL: https://www.youtube.com/watch?v=lG4VkPoG3ko
+     Published: 2020-12-22T17:42:00Z
+------------------------------------------------------------
+107. Hamming codes part 2: The one-line implementation
+     ID: b3NxrZOu_CE
+     URL: https://www.youtube.com/watch?v=b3NxrZOu_CE
+     Published: 2020-09-04T15:36:24Z
+------------------------------------------------------------
+108. But what are Hamming codes? The origin of error correction
+     ID: X8jsijhllIA
+     URL: https://www.youtube.com/watch?v=X8jsijhllIA
+     Published: 2020-09-04T15:32:50Z
+------------------------------------------------------------
+109. Group theory, abstraction, and the 196,883-dimensional monster
+     ID: mH0oCDa74tE
+     URL: https://www.youtube.com/watch?v=mH0oCDa74tE
+     Published: 2020-08-19T14:01:39Z
+------------------------------------------------------------
+110. The impossible chessboard puzzle
+     ID: wTJI_WuZSwE
+     URL: https://www.youtube.com/watch?v=wTJI_WuZSwE
+     Published: 2020-07-05T18:50:36Z
+------------------------------------------------------------
+111. Tips to be a better problem solver [Last live lecture] | Ep. 10 Lockdown live math
+     ID: QvuQH4_05LI
+     URL: https://www.youtube.com/watch?v=QvuQH4_05LI
+     Published: 2020-05-22T20:14:56Z
+------------------------------------------------------------
+112. Intuition for i to the power i | Ep. 9 Lockdown live math
+     ID: pq9LcwC7CoY
+     URL: https://www.youtube.com/watch?v=pq9LcwC7CoY
+     Published: 2020-05-15T21:23:19Z
+------------------------------------------------------------
+113. The DP-3T algorithm for contact tracing (with Nicky Case)
+     ID: D__UaR5MQao
+     URL: https://www.youtube.com/watch?v=D__UaR5MQao
+     Published: 2020-05-14T15:00:01Z
+------------------------------------------------------------
+114. The power tower puzzle | Ep. 8 Lockdown live math
+     ID: elQVZLLiod4
+     URL: https://www.youtube.com/watch?v=elQVZLLiod4
+     Published: 2020-05-12T19:59:48Z
+------------------------------------------------------------
+115. What makes the natural log "natural"? | Ep. 7 Lockdown live math
+     ID: 4PDoT7jtxmw
+     URL: https://www.youtube.com/watch?v=4PDoT7jtxmw
+     Published: 2020-05-08T20:22:12Z
+------------------------------------------------------------
+116. Logarithm Fundamentals | Ep. 6 Lockdown live math
+     ID: cEvgcoyZvB4
+     URL: https://www.youtube.com/watch?v=cEvgcoyZvB4
+     Published: 2020-05-05T20:36:51Z
+------------------------------------------------------------
+117. Imaginary interest rates | Ep. 5 Lockdown live math
+     ID: IAEASE5GjdI
+     URL: https://www.youtube.com/watch?v=IAEASE5GjdI
+     Published: 2020-05-01T20:11:37Z
+------------------------------------------------------------
+118. What is Euler's formula actually saying? | Ep. 4 Lockdown live math
+     ID: ZxYOEwM6Wbk
+     URL: https://www.youtube.com/watch?v=ZxYOEwM6Wbk
+     Published: 2020-04-28T19:58:20Z
+------------------------------------------------------------
+119. Complex number fundamentals | Ep. 3 Lockdown live math
+     ID: 5PcpBw5Hbwo
+     URL: https://www.youtube.com/watch?v=5PcpBw5Hbwo
+     Published: 2020-04-24T20:31:26Z
+------------------------------------------------------------
+120. Trigonometry fundamentals | Ep. 2 Lockdown live math
+     ID: yBw67Fb31Cs
+     URL: https://www.youtube.com/watch?v=yBw67Fb31Cs
+     Published: 2020-04-21T20:51:44Z
+------------------------------------------------------------
+121. The simpler quadratic formula | Ep. 1 Lockdown live math
+     ID: MHXO86wKeDY
+     URL: https://www.youtube.com/watch?v=MHXO86wKeDY
+     Published: 2020-04-17T20:04:24Z
+------------------------------------------------------------
+122. Lockdown math announcement
+     ID: ppWPuXsnf1Q
+     URL: https://www.youtube.com/watch?v=ppWPuXsnf1Q
+     Published: 2020-04-16T21:25:09Z
+------------------------------------------------------------
+123. Why “probability of 0” does not mean “impossible” | Probabilities of probabilities, part 2
+     ID: ZA4JkHKZM50
+     URL: https://www.youtube.com/watch?v=ZA4JkHKZM50
+     Published: 2020-04-12T15:41:30Z
+------------------------------------------------------------
+124. Simulating an epidemic
+     ID: gxAaO2rsdIs
+     URL: https://www.youtube.com/watch?v=gxAaO2rsdIs
+     Published: 2020-03-27T19:47:30Z
+------------------------------------------------------------
+125. Binomial distributions | Probabilities of probabilities, part 1
+     ID: 8idr1WZ1A7Q
+     URL: https://www.youtube.com/watch?v=8idr1WZ1A7Q
+     Published: 2020-03-15T18:28:16Z
+------------------------------------------------------------
+126. Exponential growth and epidemics
+     ID: Kas0tIxDvrg
+     URL: https://www.youtube.com/watch?v=Kas0tIxDvrg
+     Published: 2020-03-08T16:58:19Z
+------------------------------------------------------------
+127. The quick proof of Bayes' theorem
+     ID: U_85TaXbeIo
+     URL: https://www.youtube.com/watch?v=U_85TaXbeIo
+     Published: 2019-12-22T14:45:25Z
+------------------------------------------------------------
+128. Bayes theorem, the geometry of changing beliefs
+     ID: HZGCoVF3YvM
+     URL: https://www.youtube.com/watch?v=HZGCoVF3YvM
+     Published: 2019-12-22T14:31:56Z
+------------------------------------------------------------
+129. Q&A with Grant, windy walk edition
+     ID: Agbh95KyWxY
+     URL: https://www.youtube.com/watch?v=Agbh95KyWxY
+     Published: 2019-11-23T01:00:14Z
+------------------------------------------------------------
+130. Why do prime numbers make these spirals? | Dirichlet’s theorem and pi approximations
+     ID: EK32jo7i5LQ
+     URL: https://www.youtube.com/watch?v=EK32jo7i5LQ
+     Published: 2019-10-08T17:02:51Z
+------------------------------------------------------------
+131. The unexpectedly hard windmill question (2011 IMO, Q2)
+     ID: M64HUIJFTZM
+     URL: https://www.youtube.com/watch?v=M64HUIJFTZM
+     Published: 2019-08-04T17:03:51Z
+------------------------------------------------------------
+132. e^(iπ) in 3.14 minutes, using dynamics | DE5
+     ID: v0YEaeIClKY
+     URL: https://www.youtube.com/watch?v=v0YEaeIClKY
+     Published: 2019-07-07T14:08:18Z
+------------------------------------------------------------
+133. Pure Fourier series animation montage
+     ID: -qgreAUpPwM
+     URL: https://www.youtube.com/watch?v=-qgreAUpPwM
+     Published: 2019-07-03T04:05:19Z
+------------------------------------------------------------
+134. But what is a Fourier series?  From heat flow to drawing with circles | DE4
+     ID: r6sGWTCMz2k
+     URL: https://www.youtube.com/watch?v=r6sGWTCMz2k
+     Published: 2019-06-30T14:50:20Z
+------------------------------------------------------------
+135. Solving the heat equation | DE3
+     ID: ToIXSwZ1pJU
+     URL: https://www.youtube.com/watch?v=ToIXSwZ1pJU
+     Published: 2019-06-16T16:31:00Z
+------------------------------------------------------------
+136. But what is a partial differential equation?  | DE2
+     ID: ly4S0oi3Yz8
+     URL: https://www.youtube.com/watch?v=ly4S0oi3Yz8
+     Published: 2019-04-21T16:53:21Z
+------------------------------------------------------------
+137. Differential equations, a tourist's guide | DE1
+     ID: p_di4Zn4wz4
+     URL: https://www.youtube.com/watch?v=p_di4Zn4wz4
+     Published: 2019-03-31T15:15:50Z
+------------------------------------------------------------
+138. Cramer's rule, explained geometrically | Chapter 12, Essence of linear algebra
+     ID: jBsC34PxzoM
+     URL: https://www.youtube.com/watch?v=jBsC34PxzoM
+     Published: 2019-03-17T04:35:22Z
+------------------------------------------------------------
+139. How colliding blocks act like a beam of light...to compute pi.
+     ID: brU5yLm9DZM
+     URL: https://www.youtube.com/watch?v=brU5yLm9DZM
+     Published: 2019-02-03T16:23:07Z
+------------------------------------------------------------
+140. The most unexpected answer to a counting puzzle
+     ID: HEfHFsfGXjs
+     URL: https://www.youtube.com/watch?v=HEfHFsfGXjs
+     Published: 2019-01-13T16:12:47Z
+------------------------------------------------------------
+141. But why is a sphere's surface area four times its shadow?
+     ID: GNcFjFmqEc8
+     URL: https://www.youtube.com/watch?v=GNcFjFmqEc8
+     Published: 2018-12-02T20:08:11Z
+------------------------------------------------------------
+142. Using topology for discrete problems | The Borsuk-Ulam theorem and stolen necklaces
+     ID: yuVqxCSsE7c
+     URL: https://www.youtube.com/watch?v=yuVqxCSsE7c
+     Published: 2018-11-18T14:09:20Z
+------------------------------------------------------------
+143. Why 5/3 is a fundamental constant for turbulence
+     ID: _UoTTq651dE
+     URL: https://www.youtube.com/watch?v=_UoTTq651dE
+     Published: 2018-11-07T20:20:32Z
+------------------------------------------------------------
+144. Quaternions and 3d rotation, explained interactively
+     ID: zjMuIxRvygQ
+     URL: https://www.youtube.com/watch?v=zjMuIxRvygQ
+     Published: 2018-10-26T16:31:52Z
+------------------------------------------------------------
+145. Visualizing quaternions (4d numbers) with stereographic projection
+     ID: d4EgbgTm0Bg
+     URL: https://www.youtube.com/watch?v=d4EgbgTm0Bg
+     Published: 2018-09-06T14:59:33Z
+------------------------------------------------------------
+146. Q&A with Grant Sanderson (3blue1brown)
+     ID: Qe6o9j4IjTo
+     URL: https://www.youtube.com/watch?v=Qe6o9j4IjTo
+     Published: 2018-08-24T16:34:02Z
+------------------------------------------------------------
+147. Why slicing a cone gives an ellipse (beautiful proof)
+     ID: pQa_tWZmlGs
+     URL: https://www.youtube.com/watch?v=pQa_tWZmlGs
+     Published: 2018-08-01T15:13:51Z
+------------------------------------------------------------
+148. Other math channels you'd enjoy
+     ID: VcgJro0sTiM
+     URL: https://www.youtube.com/watch?v=VcgJro0sTiM
+     Published: 2018-06-27T16:29:07Z
+------------------------------------------------------------
+149. Divergence and curl:  The language of Maxwell's equations, fluid flow, and more
+     ID: rB83DpBJQsE
+     URL: https://www.youtube.com/watch?v=rB83DpBJQsE
+     Published: 2018-06-21T18:34:59Z
+------------------------------------------------------------
+150. The other way to visualize derivatives | Chapter 12, Essence of calculus
+     ID: CfW845LNObM
+     URL: https://www.youtube.com/watch?v=CfW845LNObM
+     Published: 2018-05-19T14:09:16Z
+------------------------------------------------------------
+151. The Wallis product for pi, proved geometrically
+     ID: 8GPy_UMV-08
+     URL: https://www.youtube.com/watch?v=8GPy_UMV-08
+     Published: 2018-04-20T18:59:28Z
+------------------------------------------------------------
+152. Winding numbers and domain coloring
+     ID: b7FxPsqfkOY
+     URL: https://www.youtube.com/watch?v=b7FxPsqfkOY
+     Published: 2018-03-24T14:42:51Z
+------------------------------------------------------------
+153. How pi was almost 6.283185...
+     ID: bcPTiiiYDs8
+     URL: https://www.youtube.com/watch?v=bcPTiiiYDs8
+     Published: 2018-03-14T13:05:32Z
+------------------------------------------------------------
+154. Why is pi here?  And why is it squared?  A geometric answer to the Basel problem
+     ID: d-o3eB9sfls
+     URL: https://www.youtube.com/watch?v=d-o3eB9sfls
+     Published: 2018-03-02T16:23:29Z
+------------------------------------------------------------
+155. The more general uncertainty principle, regarding Fourier transforms
+     ID: MBnnXbOM5S4
+     URL: https://www.youtube.com/watch?v=MBnnXbOM5S4
+     Published: 2018-02-25T00:25:00Z
+------------------------------------------------------------
+156. But what is the Fourier Transform?  A visual introduction.
+     ID: spUNpyF58BY
+     URL: https://www.youtube.com/watch?v=spUNpyF58BY
+     Published: 2018-01-26T18:47:48Z
+------------------------------------------------------------
+157. Why this puzzle is impossible
+     ID: VvCytJvd4H0
+     URL: https://www.youtube.com/watch?v=VvCytJvd4H0
+     Published: 2017-12-23T16:43:38Z
+------------------------------------------------------------
+158. Q&A #2 + Net Neutrality Nuance
+     ID: liL66CApESk
+     URL: https://www.youtube.com/watch?v=liL66CApESk
+     Published: 2017-12-14T15:57:43Z
+------------------------------------------------------------
+159. The hardest problem on the hardest test
+     ID: OkmNXy7er84
+     URL: https://www.youtube.com/watch?v=OkmNXy7er84
+     Published: 2017-12-08T15:04:57Z
+------------------------------------------------------------
+160. Backpropagation calculus | Deep Learning Chapter 4
+     ID: tIeHLnjs5U8
+     URL: https://www.youtube.com/watch?v=tIeHLnjs5U8
+     Published: 2017-11-03T14:08:09Z
+------------------------------------------------------------
+161. Backpropagation, intuitively | Deep Learning Chapter 3
+     ID: Ilg3gGewQ5U
+     URL: https://www.youtube.com/watch?v=Ilg3gGewQ5U
+     Published: 2017-11-03T14:03:37Z
+------------------------------------------------------------
+162. Gradient descent, how neural networks learn | Deep Learning Chapter 2
+     ID: IHZwWFHWa-w
+     URL: https://www.youtube.com/watch?v=IHZwWFHWa-w
+     Published: 2017-10-16T16:48:20Z
+------------------------------------------------------------
+163. But what is a neural network? | Deep learning chapter 1
+     ID: aircAruvnKk
+     URL: https://www.youtube.com/watch?v=aircAruvnKk
+     Published: 2017-10-05T15:11:25Z
+------------------------------------------------------------
+164. Some light quantum mechanics (with minutephysics)
+     ID: MzRCDLre1b4
+     URL: https://www.youtube.com/watch?v=MzRCDLre1b4
+     Published: 2017-09-13T14:06:26Z
+------------------------------------------------------------
+165. Thinking outside the 10-dimensional box
+     ID: zwAD6dRSVyI
+     URL: https://www.youtube.com/watch?v=zwAD6dRSVyI
+     Published: 2017-08-11T22:41:08Z
+------------------------------------------------------------
+166. Hilbert's Curve: Is infinite math useful?
+     ID: 3s7h2MHQtxc
+     URL: https://www.youtube.com/watch?v=3s7h2MHQtxc
+     Published: 2017-07-21T15:33:50Z
+------------------------------------------------------------
+167. How secure is 256 bit security?
+     ID: S9JGmA5_unY
+     URL: https://www.youtube.com/watch?v=S9JGmA5_unY
+     Published: 2017-07-08T14:19:39Z
+------------------------------------------------------------
+168. But how does bitcoin actually work?
+     ID: bBC-nXj3Ng4
+     URL: https://www.youtube.com/watch?v=bBC-nXj3Ng4
+     Published: 2017-07-07T16:51:37Z
+------------------------------------------------------------
+169. All possible pythagorean triples, visualized
+     ID: QJYmyhnaaek
+     URL: https://www.youtube.com/watch?v=QJYmyhnaaek
+     Published: 2017-05-26T17:58:15Z
+------------------------------------------------------------
+170. Pi hiding in prime regularities
+     ID: NaL_Cb42WyY
+     URL: https://www.youtube.com/watch?v=NaL_Cb42WyY
+     Published: 2017-05-19T15:41:54Z
+------------------------------------------------------------
+171. Taylor series | Chapter 11, Essence of calculus
+     ID: 3d6DsjIBzJ4
+     URL: https://www.youtube.com/watch?v=3d6DsjIBzJ4
+     Published: 2017-05-07T14:06:12Z
+------------------------------------------------------------
+172. Higher order derivatives | Chapter 10, Essence of calculus
+     ID: BLkz5LGWihw
+     URL: https://www.youtube.com/watch?v=BLkz5LGWihw
+     Published: 2017-05-07T14:05:35Z
+------------------------------------------------------------
+173. What does area have to do with slope? | Chapter 9, Essence of calculus
+     ID: FnJqaIESC2s
+     URL: https://www.youtube.com/watch?v=FnJqaIESC2s
+     Published: 2017-05-06T13:53:16Z
+------------------------------------------------------------
+174. Integration and the fundamental theorem of calculus | Chapter 8, Essence of calculus
+     ID: rfG8ce4nNh0
+     URL: https://www.youtube.com/watch?v=rfG8ce4nNh0
+     Published: 2017-05-05T15:05:21Z
+------------------------------------------------------------
+175. Limits, L'Hôpital's rule, and epsilon delta definitions | Chapter 7, Essence of calculus
+     ID: kfF40MiS7zA
+     URL: https://www.youtube.com/watch?v=kfF40MiS7zA
+     Published: 2017-05-04T15:05:18Z
+------------------------------------------------------------
+176. Implicit differentiation, what's going on here? | Chapter 6, Essence of calculus
+     ID: qb40J4N1fa4
+     URL: https://www.youtube.com/watch?v=qb40J4N1fa4
+     Published: 2017-05-03T15:38:43Z
+------------------------------------------------------------
+177. What's so special about Euler's number e? | Chapter 5, Essence of calculus
+     ID: m2MIpDrF7Es
+     URL: https://www.youtube.com/watch?v=m2MIpDrF7Es
+     Published: 2017-05-02T15:09:46Z
+------------------------------------------------------------
+178. Visualizing the chain rule and product rule | Chapter 4, Essence of calculus
+     ID: YG15m2VwSjA
+     URL: https://www.youtube.com/watch?v=YG15m2VwSjA
+     Published: 2017-05-01T15:19:28Z
+------------------------------------------------------------
+179. Derivative formulas through geometry | Chapter 3, Essence of calculus
+     ID: S0_qX4VJhMQ
+     URL: https://www.youtube.com/watch?v=S0_qX4VJhMQ
+     Published: 2017-04-30T15:24:09Z
+------------------------------------------------------------
+180. The paradox of the derivative | Chapter 2, Essence of calculus
+     ID: 9vKqVkMQHKk
+     URL: https://www.youtube.com/watch?v=9vKqVkMQHKk
+     Published: 2017-04-29T16:24:03Z
+------------------------------------------------------------
+181. The essence of calculus
+     ID: WUvTyaaNkzM
+     URL: https://www.youtube.com/watch?v=WUvTyaaNkzM
+     Published: 2017-04-28T15:58:48Z
+------------------------------------------------------------
+182. Euler's formula with introductory group theory
+     ID: mvmuCPvRoWQ
+     URL: https://www.youtube.com/watch?v=mvmuCPvRoWQ
+     Published: 2017-03-03T22:07:09Z
+------------------------------------------------------------
+183. Fractals are typically not self-similar
+     ID: gB9n2gHsHN4
+     URL: https://www.youtube.com/watch?v=gB9n2gHsHN4
+     Published: 2017-01-27T17:29:08Z
+------------------------------------------------------------
+184. Tattoos on Math
+     ID: IxNb1WG_Ido
+     URL: https://www.youtube.com/watch?v=IxNb1WG_Ido
+     Published: 2017-01-06T18:05:41Z
+------------------------------------------------------------
+185. But what is the Riemann zeta function? Visualizing analytic continuation
+     ID: sD0NjbwqlYw
+     URL: https://www.youtube.com/watch?v=sD0NjbwqlYw
+     Published: 2016-12-09T17:50:56Z
+------------------------------------------------------------
+186. Binary, Hanoi, and Sierpinski, part 2
+     ID: bdMfjfT0lKk
+     URL: https://www.youtube.com/watch?v=bdMfjfT0lKk
+     Published: 2016-11-25T17:30:46Z
+------------------------------------------------------------
+187. Binary, Hanoi and Sierpinski, part 1
+     ID: 2SUvWfNJSsM
+     URL: https://www.youtube.com/watch?v=2SUvWfNJSsM
+     Published: 2016-11-25T17:30:20Z
+------------------------------------------------------------
+188. 3blue1brown channel trailer
+     ID: R7p-nPg8t_g
+     URL: https://www.youtube.com/watch?v=R7p-nPg8t_g
+     Published: 2016-11-25T17:29:36Z
+------------------------------------------------------------
+189. Who cares about topology?   (Old version)
+     ID: AmgkSdhK4K8
+     URL: https://www.youtube.com/watch?v=AmgkSdhK4K8
+     Published: 2016-11-04T21:48:23Z
+------------------------------------------------------------
+190. Abstract vector spaces | Chapter 16, Essence of linear algebra
+     ID: TgKwz5Ikpc8
+     URL: https://www.youtube.com/watch?v=TgKwz5Ikpc8
+     Published: 2016-09-24T19:29:09Z
+------------------------------------------------------------
+191. Eigenvectors and eigenvalues | Chapter 14, Essence of linear algebra
+     ID: PFDu9oVAE-g
+     URL: https://www.youtube.com/watch?v=PFDu9oVAE-g
+     Published: 2016-09-15T18:22:14Z
+------------------------------------------------------------
+192. Change of basis | Chapter 13, Essence of linear algebra
+     ID: P2LTAUO1TdA
+     URL: https://www.youtube.com/watch?v=P2LTAUO1TdA
+     Published: 2016-09-11T17:56:20Z
+------------------------------------------------------------
+193. Cross products in the light of linear transformations | Chapter 11, Essence of linear algebra
+     ID: BaM7OCEm3G0
+     URL: https://www.youtube.com/watch?v=BaM7OCEm3G0
+     Published: 2016-09-01T03:54:15Z
+------------------------------------------------------------
+194. Cross products | Chapter 10, Essence of linear algebra
+     ID: eu6i7WJeinw
+     URL: https://www.youtube.com/watch?v=eu6i7WJeinw
+     Published: 2016-09-01T03:54:15Z
+------------------------------------------------------------
+195. Dot products and duality | Chapter 9, Essence of linear algebra
+     ID: LyGKycYT2v0
+     URL: https://www.youtube.com/watch?v=LyGKycYT2v0
+     Published: 2016-08-24T19:20:58Z
+------------------------------------------------------------
+196. Nonsquare matrices as transformations between dimensions | Chapter 8, Essence of linear algebra
+     ID: v8VSDg_WQlA
+     URL: https://www.youtube.com/watch?v=v8VSDg_WQlA
+     Published: 2016-08-16T21:59:23Z
+------------------------------------------------------------
+197. Inverse matrices, column space and null space | Chapter 7, Essence of linear algebra
+     ID: uQhTuRlWMxw
+     URL: https://www.youtube.com/watch?v=uQhTuRlWMxw
+     Published: 2016-08-15T22:00:22Z
+------------------------------------------------------------
+198. The determinant | Chapter 6, Essence of linear algebra
+     ID: Ip3X9LOh2dk
+     URL: https://www.youtube.com/watch?v=Ip3X9LOh2dk
+     Published: 2016-08-10T22:31:18Z
+------------------------------------------------------------
+199. Three-dimensional linear transformations | Chapter 5, Essence of linear algebra
+     ID: rHLEWRxRGiM
+     URL: https://www.youtube.com/watch?v=rHLEWRxRGiM
+     Published: 2016-08-09T22:01:39Z
+------------------------------------------------------------
+200. Matrix multiplication as composition | Chapter 4, Essence of linear algebra
+     ID: XkY2DOUCWMU
+     URL: https://www.youtube.com/watch?v=XkY2DOUCWMU
+     Published: 2016-08-08T22:20:43Z
+------------------------------------------------------------
+201. Linear transformations and matrices | Chapter 3, Essence of linear algebra
+     ID: kYB8IZa5AuE
+     URL: https://www.youtube.com/watch?v=kYB8IZa5AuE
+     Published: 2016-08-07T21:39:19Z
+------------------------------------------------------------
+202. Linear combinations, span, and basis vectors | Chapter 2, Essence of linear algebra
+     ID: k7RM-ot2NWY
+     URL: https://www.youtube.com/watch?v=k7RM-ot2NWY
+     Published: 2016-08-06T23:49:28Z
+------------------------------------------------------------
+203. Vectors | Chapter 1, Essence of linear algebra
+     ID: fNk_zzaMoSs
+     URL: https://www.youtube.com/watch?v=fNk_zzaMoSs
+     Published: 2016-08-06T00:05:49Z
+------------------------------------------------------------
+204. Essence of linear algebra preview
+     ID: kjBOesZCoqc
+     URL: https://www.youtube.com/watch?v=kjBOesZCoqc
+     Published: 2016-08-05T01:01:44Z
+------------------------------------------------------------
+205. Triangle of Power
+     ID: sULa9Lc4pck
+     URL: https://www.youtube.com/watch?v=sULa9Lc4pck
+     Published: 2016-06-26T05:51:12Z
+------------------------------------------------------------
+206. The Brachistochrone, with Steven Strogatz
+     ID: Cld0p3a43fU
+     URL: https://www.youtube.com/watch?v=Cld0p3a43fU
+     Published: 2016-04-01T20:27:08Z
+------------------------------------------------------------
+207. Snell's law proof using springs
+     ID: Iq1a_KJTWJ8
+     URL: https://www.youtube.com/watch?v=Iq1a_KJTWJ8
+     Published: 2016-04-01T20:27:08Z
+------------------------------------------------------------
+208. Fractal charm: Space filling curves
+     ID: RU0wScIj36o
+     URL: https://www.youtube.com/watch?v=RU0wScIj36o
+     Published: 2016-01-17T01:43:18Z
+------------------------------------------------------------
+209. Music And Measure Theory
+     ID: cyW5z-M2yzw
+     URL: https://www.youtube.com/watch?v=cyW5z-M2yzw
+     Published: 2015-10-04T02:14:13Z
+------------------------------------------------------------
+210. How to count to 1000 on two hands
+     ID: 1SMmc9gQmHQ
+     URL: https://www.youtube.com/watch?v=1SMmc9gQmHQ
+     Published: 2015-09-18T21:53:13Z
+------------------------------------------------------------
+211. What does it feel like to invent math?
+     ID: XFDM1ip5HdU
+     URL: https://www.youtube.com/watch?v=XFDM1ip5HdU
+     Published: 2015-08-14T01:20:50Z
+------------------------------------------------------------
+212. Euler's Formula and Graph Duality
+     ID: -9OUyo8NFZg
+     URL: https://www.youtube.com/watch?v=-9OUyo8NFZg
+     Published: 2015-06-21T06:05:43Z
+------------------------------------------------------------
+213. Euler's Formula Poem
+     ID: zLzLxVeqdQg
+     URL: https://www.youtube.com/watch?v=zLzLxVeqdQg
+     Published: 2015-03-05T06:15:23Z
+------------------------------------------------------------
+214. e to the pi i, a nontraditional take (old version)
+     ID: F_0yfvm0UoU
+     URL: https://www.youtube.com/watch?v=F_0yfvm0UoU
+     Published: 2015-03-05T06:15:22Z
+------------------------------------------------------------
