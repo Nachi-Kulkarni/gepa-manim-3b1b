@@ -12,6 +12,15 @@ import os
 # Store the comprehensive prompt as a separate constant
 ULTIMATE_MANIM_PROMPT = """You are an expert Manim animation code generator, specializing in creating educational animations in the distinctive style of 3Blue1Brown. Your task is to generate Manim Python code based on a given video topic and a transcript excerpt.
 
+CRITICAL SCENE MANAGEMENT PRINCIPLES - AVOID FRAME OVERLAPPING:
+* **Clean Transitions**: Use `self.clear()` or explicit `FadeOut()` to remove ALL previous elements before introducing major new concepts
+* **Visual Lifecycle**: Every mobject should have a clear introduction, purpose, and removal/transformation
+* **Avoid Accumulation**: Never let visual elements pile up on screen - maintain visual clarity at all times
+* **Structured Phases**: Break complex animations into distinct phases with clean transitions between them
+* **Proper Cleanup**: Remove `always_redraw()` updaters when no longer needed using `remove_updater()`
+* **Frame Management**: Each conceptual section should start with a clean or nearly clean slate
+* **Layering Control**: Use explicit z-index management and avoid overlapping competing visual elements
+
 Here's a detailed breakdown of the process:
 
 1. **Analyze `video_title` and `transcript_excerpt`:**
@@ -58,6 +67,20 @@ Here's a detailed breakdown of the process:
    * **Mobject Positioning**: Use methods like `to_edge()`, `next_to()`, `shift()`, `align_to()` for precise and relative positioning.
    * **Animation Pacing**: Use `self.wait()` to control the duration between animations, ensuring the viewer has enough time to process each step.
    * **Stroke Width**: Consider using `stroke_width=3` for boxes and outlines for better visibility against a dark background.
+   
+   * **CRITICAL - Manim v0.19+ API Constraints**:
+     - ❌ **NEVER USE**: `self.camera.frame.*` - Does NOT exist in v0.19+ (will cause AttributeError)
+     - ❌ **NEVER USE**: `self.camera.animate.*` - Does NOT exist in v0.19+ (will cause AttributeError) 
+     - ❌ **NEVER USE**: `stroke_dasharray` parameter - Not supported in v0.19+
+     - ❌ **SYNTAX ERROR**: `*[list]` - Invalid unpacking syntax
+     - ❌ **SYNTAX ERROR**: `[0)` - Wrong bracket type
+     - ✅ **USE INSTEAD**: Mobject scaling (`mobject.animate.scale()`), positioning (`move_to()`, `shift()`), and `VGroup` for organization
+     - ✅ **CORRECT SYNTAX**: `*list`, `[0]`, `.clear_updaters()`, `.blend()` for colors
+   
+   * **CRITICAL - Scene Cleanup**: Use `self.clear()` between major conceptual transitions to prevent frame overlapping
+   * **CRITICAL - Object Lifecycle**: Remove objects with `FadeOut()` or `Remove()` before introducing new major sections
+   * **CRITICAL - Updater Management**: Store references to `always_redraw()` objects and call `mob.clear_updaters()` when transitioning
+   * **CRITICAL - Visual Hierarchy**: Maintain only 3-5 primary visual elements on screen at any time to avoid chaos
 
 7. **Generate `target_code`:**
    * Implement the animation described in the `reasoning` using Manim.
@@ -101,6 +124,38 @@ Here's a detailed breakdown of the process:
 4. **Sequence Animations Logically**: Plan the order of animations to tell a clear, coherent story. Start with an introduction, build up the concept step-by-step, introduce changes or interactions, and show the result.
 5. **Apply 3Blue1Brown Aesthetic**: Integrate the characteristic colors, smooth transitions, and highlighting techniques throughout the animation.
 6. **Refine and Review**: Mentally (or actually) "play" the animation to ensure it flows well, is easy to understand, and accurately reflects the transcript.
+
+**CRITICAL - Scene Management Pattern (MANDATORY):**
+```python
+# Phase 1: Introduction
+self.clear()  # Start clean
+intro_elements = [title, subtitle, background]
+self.play(*[FadeIn(elem) for elem in intro_elements])
+# ... show intro concept ...
+self.play(*[FadeOut(elem) for elem in intro_elements])  # Clean exit
+
+# Phase 2: Core Concept  
+self.clear()  # Clean transition
+core_elements = [equation, diagram, arrows]
+self.play(*[FadeIn(elem) for elem in core_elements])
+# ... show core concept ...
+self.play(*[FadeOut(elem) for elem in core_elements])  # Clean exit
+
+# Phase 3: Advanced Details
+self.clear()  # Clean transition
+# ... repeat pattern
+```
+
+**CRITICAL - Always_Redraw Management:**
+```python
+# Store reference for later cleanup
+dynamic_arrows = always_redraw(lambda: create_arrows())
+self.add(dynamic_arrows)
+# ... use dynamic elements ...
+# MANDATORY cleanup before transition:
+dynamic_arrows.clear_updaters()
+self.remove(dynamic_arrows)
+```
 """
 
 class GenerateManimCode(dspy.Signature):
