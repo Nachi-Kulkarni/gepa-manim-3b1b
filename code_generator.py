@@ -21,6 +21,22 @@ CRITICAL SCENE MANAGEMENT PRINCIPLES - AVOID FRAME OVERLAPPING:
 * **Frame Management**: Each conceptual section should start with a clean or nearly clean slate
 * **Layering Control**: Use explicit z-index management and avoid overlapping competing visual elements
 
+CRITICAL TIMING AND VISUAL DENSITY REQUIREMENTS:
+* **TOTAL DURATION**: Match the provided audio duration exactly (synchronize with narration)
+* **VISUAL DENSITY**: Ensure visual changes every ~4 seconds throughout the animation
+* **NO LONG STATIC PERIODS**: Never use wait() calls longer than 6 seconds without visual changes
+* **CONTINUOUS ANIMATION**: Use `always_redraw()`, animated transformations, and background effects during long explanations
+* **TIMING DISTRIBUTION**: Distribute animation timing evenly across the duration array - use all indices effectively
+* **SUBTITLE SYNCHRONIZATION**: Structure animation to align with subtitle timing cues provided in context
+* **ADAPTIVE DURATION**: Calculate individual duration based on total audio length ÷ number of cues
+
+ENHANCED VISUAL EFFECTS FOR ENGAGEMENT:
+* **BACKGROUND ANIMATIONS**: Add subtle floating elements, particle systems, or grid animations
+* **CONTINUOUS MOTION**: Use rotating elements, pulsing effects, color transitions during static explanations
+* **INTERMEDIATE STEPS**: Break long transformations into multiple shorter, visible steps
+* **VISUAL FEEDBACK**: Show mathematical operations happening step-by-step with visual confirmation
+* **DYNAMIC ELEMENTS**: Use value trackers, animated parameters, and real-time calculations
+
 Here's a detailed breakdown of the process:
 
 1. **Analyze `video_title` and `transcript_excerpt`:**
@@ -125,25 +141,94 @@ Here's a detailed breakdown of the process:
 5. **Apply 3Blue1Brown Aesthetic**: Integrate the characteristic colors, smooth transitions, and highlighting techniques throughout the animation.
 6. **Refine and Review**: Mentally (or actually) "play" the animation to ensure it flows well, is easy to understand, and accurately reflects the transcript.
 
+**CRITICAL - ADAPTIVE TIMING STRUCTURE (MANDATORY):**
+```python
+# Calculate duration per animation cue based on total audio length
+def _create_duration_array(total_audio_seconds, num_cues=50):
+    \"\"\"Create adaptive duration array based on actual audio length\"\"\"
+    base_duration = total_audio_seconds / num_cues
+    return [base_duration] * num_cues
+
+# Example usage (will be populated with actual values from context):
+# total_audio_duration = 270.0  # This will come from timing context
+# durations = _create_duration_array(total_audio_duration, num_cues=50)
+# Each duration = 270.0 / 50 = 5.4 seconds
+
+def d(i, default=5.4):
+    \"\"\"Safe duration getter with adaptive timing\"\"\"
+    try:
+        return durations[i]
+    except Exception:
+        return default
+
+# CRITICAL: Break long explanations into visual chunks every 4-6 seconds:
+# Instead of: self.wait(30.0)  # BAD - too long and static
+# Use: 
+#   self.play(step1_animation, run_time=4.0)
+#   self.play(background_pulse, run_time=6.0)  # Continuous visual
+#   self.play(step2_animation, run_time=4.0)
+#   self.play(intermediate_visual, run_time=6.0)  # Keep engagement
+#   self.play(step3_animation, run_time=4.0)
+#   self.wait(6.0)  # Maximum allowed static wait
+```
+
+**CRITICAL - VISUAL DENSITY PATTERN (MANDATORY):**
+```python
+# Always include continuous animations during explanations:
+def _add_continuous_motion(self):
+    \"\"\"Add continuous visual elements to maintain engagement\"\"\"
+    # Pulsing mathematical elements
+    pulsing_dot = always_redraw(lambda: Dot(
+        [2, 1.5, 0], 
+        color=YELLOW, 
+        radius=0.15 + 0.05 * np.sin(self.time * 2)
+    ))
+    
+    # Background particle system
+    floating_symbols = VGroup(*[
+        MathTex(sym, color=BLUE_D, font_size=20).move_to([
+            np.random.uniform(-6, 6),
+            np.random.uniform(-3, 3), 
+            0
+        ]) for sym in ["i", "π", "e", "∞", "∑", "∫"]
+    ])
+    
+    # Animate floating motion
+    for symbol in floating_symbols:
+        symbol.add_updater(lambda m: m.shift(UP * 0.01 * np.sin(self.time * 2 + m.get_center()[0])))
+    
+    return VGroup(pulsing_dot, *floating_symbols)
+
+# Use during long mathematical explanations:
+background_motion = self._add_continuous_motion()
+self.add(background_motion)
+self.play(main_concept_animation, run_time=d(0))
+# Background motion continues automatically
+```
+
 **CRITICAL - Scene Management Pattern (MANDATORY):**
 ```python
-# Phase 1: Introduction
+# Phase 1: Introduction with continuous motion
 self.clear()  # Start clean
-intro_elements = [title, subtitle, background]
-self.play(*[FadeIn(elem) for elem in intro_elements])
-# ... show intro concept ...
+intro_elements = [title, subtitle]
+background_motion = self._add_continuous_motion()
+self.add(background_motion)
+self.play(*[FadeIn(elem) for elem in intro_elements], run_time=d(0))
+# Background motion continues during entire explanation
+self.wait(d(1))  # Brief pause with continuous background animation
 self.play(*[FadeOut(elem) for elem in intro_elements])  # Clean exit
 
-# Phase 2: Core Concept  
+# Phase 2: Core Concept with step-by-step visualization  
 self.clear()  # Clean transition
-core_elements = [equation, diagram, arrows]
-self.play(*[FadeIn(elem) for elem in core_elements])
-# ... show core concept ...
+core_elements = [equation, diagram]
+background_motion = self._add_continuous_motion()  # New continuous motion
+self.add(background_motion)
+self.play(*[FadeIn(elem) for elem in core_elements], run_time=d(2))
+# Show mathematical operation in steps with visual feedback
+for step in range(num_steps):
+    self.play(step_animation, run_time=d(3 + step))
+    self.wait(0.5)  # Brief pause for comprehension
 self.play(*[FadeOut(elem) for elem in core_elements])  # Clean exit
-
-# Phase 3: Advanced Details
-self.clear()  # Clean transition
-# ... repeat pattern
 ```
 
 **CRITICAL - Always_Redraw Management:**

@@ -1,5 +1,0 @@
-# Animation Reasoning for: explain complex numbers in detail
-
-Generated with timing context for explain complex numbers in detail
-
-[Self-Refinement Applied: 3 iterations, final score: 8.0/10]

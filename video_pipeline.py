@@ -556,16 +556,20 @@ Convert this transcript:"""
         print(f"\n🎤 Step 2.5: Generating audio narration...")
 
         try:
+            # Ensure media directory exists
+            media_dir = Path("media")
+            media_dir.mkdir(exist_ok=True)
+
             # Create safe filename for audio
             safe_title = self._sanitize_filename(video_title)
-            audio_file = f"{safe_title}_narration.wav"
+            audio_file = media_dir / f"{safe_title}_narration.wav"
 
             # Generate audio with Kokoro-TTS (af_heart voice)
             result = self.tts_generator.generate_audio(
                 text=transcript,
                 voice='af_heart',
                 speed=1.0,
-                output_file=audio_file
+                output_file=str(audio_file)
             )
 
             if result:
@@ -602,23 +606,27 @@ Convert this transcript:"""
         """Save transcript, code, and reasoning to files."""
         print(f"\n💾 Step 3: Saving pipeline outputs...")
 
+        # Create media directory if it doesn't exist
+        media_dir = Path("media")
+        media_dir.mkdir(exist_ok=True)
+        
         # Create safe filename
         safe_title = self._sanitize_filename(video_title)
 
         # Save transcript
-        transcript_file = f"{safe_title}_transcript.txt"
+        transcript_file = media_dir / f"{safe_title}_transcript.txt"
         with open(transcript_file, 'w') as f:
             f.write(f"# Transcript for: {video_title}\n\n")
             f.write(transcript)
 
         # Save animation code
-        code_file = f"{safe_title}_animation.py"
+        code_file = media_dir / f"{safe_title}_animation.py"
         with open(code_file, 'w') as f:
             f.write(code)
 
         # Save reasoning if available
         if reasoning:
-            reasoning_file = f"{safe_title}_reasoning.txt"
+            reasoning_file = media_dir / f"{safe_title}_reasoning.txt"
             with open(reasoning_file, 'w') as f:
                 f.write(f"# Animation Reasoning for: {video_title}\n\n")
                 f.write(reasoning)
@@ -631,7 +639,7 @@ Convert this transcript:"""
         if audio_file:
             print(f"   🎤 Audio: {audio_file}")
 
-        return code_file, transcript_file
+        return str(code_file), str(transcript_file)
 
     def render_video(self, code_file, quality="480p15", debug_mode=False):
         """Render the Manim animation video with error capture for debugging."""
@@ -755,9 +763,13 @@ Convert this transcript:"""
             print(f"📊 Full traceback:\n{traceback.format_exc()}")
             return None, error_info
 
-    def generate_subtitles(self, narration_script, video_title, estimated_duration=60):
+    def generate_subtitles(self, narration_script, video_title, estimated_duration=60, target_phrases=None):
         """Generate SRT subtitle file from cleaned narration script."""
         print(f"\n📝 Step 4.5: Generating subtitles from narration script...")
+
+        # Ensure media directory exists
+        media_dir = Path("media")
+        media_dir.mkdir(exist_ok=True)
 
         # Use the cleaned narration script instead of original transcript
         # This ensures consistency between narration and subtitles
@@ -786,9 +798,9 @@ Convert this transcript:"""
             srt_entry = f"{i + 1}\n{start_srt} --> {end_srt}\n{sentence.strip()}\n"
             srt_entries.append(srt_entry)
 
-        # Save SRT file
+        # Save SRT file to media directory
         safe_title = self._sanitize_filename(video_title)
-        srt_file = f"{safe_title}_subtitles.srt"
+        srt_file = media_dir / f"{safe_title}_subtitles.srt"
 
         with open(srt_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(srt_entries))
@@ -797,7 +809,150 @@ Convert this transcript:"""
         print(f"📊 {len(sentences)} subtitle entries, ~{actual_duration:.1f}s duration")
         print(f"🎯 Using cleaned narration script (consistent with audio)")
 
-        return srt_file
+        return str(srt_file)
+
+    def resync_subtitles_to_animation(self, transcript_file, audio_duration, code_file, output_file=None):
+        """Regenerate subtitles to match the animation timing structure."""
+        print(f"\n🎝 Step 12.5: Regenerating subtitles to match animation timing...")
+        
+        try:
+            # Extract clean narration from transcript
+            narration = self._extract_narration_content(transcript_file)
+            print(f"📝 Extracted narration: {len(narration)} characters")
+            
+            # Analyze animation code to determine target phrase count
+            target_phrases = self._analyze_animation_timing(code_file)
+            print(f"🎯 Animation timing analysis: {target_phrases} cues detected")
+            
+            # Split narration into phrases matching animation structure
+            phrases = self._split_into_phrases(narration, target_phrases=target_phrases)
+            print(f"🎯 Split into {len(phrases)} phrases")
+            
+            # Calculate timing based on animation structure
+            cue_duration = audio_duration / len(phrases)
+            
+            # Generate SRT content
+            srt_content = ""
+            for i, phrase in enumerate(phrases):
+                start_time = i * cue_duration
+                end_time = (i + 1) * cue_duration
+                
+                # Convert to SRT time format
+                start_srt = self._seconds_to_srt_time(start_time)
+                end_srt = self._seconds_to_srt_time(end_time)
+                
+                srt_content += f"{i + 1}\n"
+                srt_content += f"{start_srt} --> {end_srt}\n"
+                srt_content += f"{phrase}\n\n"
+            
+            # Determine output file name
+            if output_file is None:
+                transcript_path = Path(transcript_file)
+                base_name = transcript_path.stem.replace('_transcript', '')
+                # Save to media directory
+                media_dir = Path("media")
+                media_dir.mkdir(exist_ok=True)
+                output_file = media_dir / f"{base_name}_subtitles_synced.srt"
+            
+            # Write to file
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(srt_content)
+            
+            print(f"✅ Generated {len(phrases)} synchronized subtitle entries")
+            print(f"📁 Saved to: {output_file}")
+            print(f"🕐 Each cue: ~{cue_duration:.2f}s (total: {audio_duration:.2f}s)")
+            
+            return output_file
+            
+        except Exception as e:
+            print(f"❌ Failed to resync subtitles: {e}")
+            return None
+
+    def _extract_narration_content(self, transcript_file):
+        """Extract clean narration content from transcript"""
+        import re
+        with open(transcript_file, 'r') as f:
+            content = f.read()
+        
+        # Remove stage directions and cleanup
+        lines = content.split('\n')
+        clean_lines = []
+        for line in lines:
+            line = line.strip()
+            # Skip empty lines and stage directions
+            if line and not line.startswith('[') and not line.startswith('('):
+                # Remove any remaining stage direction markers
+                clean_line = re.sub(r'\[.*?\]|\(.*?\)', '', line).strip()
+                if clean_line:
+                    clean_lines.append(clean_line)
+        
+        return ' '.join(clean_lines)
+
+    def _analyze_animation_timing(self, code_file):
+        """Analyze animation code to determine timing structure"""
+        try:
+            with open(code_file, 'r') as f:
+                code_content = f.read()
+            
+            # Look for duration arrays or timing patterns
+            import re
+            
+            # Pattern 1: durations array with 50 entries
+            durations_match = re.search(r'durations\s*=\s*\[(.*?)\]', code_content, re.DOTALL)
+            if durations_match:
+                durations_str = durations_match.group(1)
+                # Count the number of duration entries
+                duration_entries = len([d.strip() for d in durations_str.split(',') if d.strip()])
+                print(f"🔍 Found durations array with {duration_entries} entries")
+                return duration_entries
+            
+            # Pattern 2: Look for subtitle cue references
+            subtitle_matches = re.findall(r'subtitle.*?cue|cue.*?subtitle', code_content, re.IGNORECASE)
+            if subtitle_matches:
+                print(f"🔍 Found {len(subtitle_matches)} subtitle cue references")
+                # Estimate based on common patterns
+                return max(40, min(60, len(subtitle_matches) * 2))
+            
+            # Default fallback for complex animations
+            print(f"🔍 Using default timing structure (50 cues)")
+            return 50
+            
+        except Exception as e:
+            print(f"⚠️  Could not analyze animation timing: {e}")
+            return 50  # Default fallback
+
+    def _split_into_phrases(self, text, target_phrases=50):
+        """Split text into approximately target_phrases phrases"""
+        import re
+        
+        # Split into sentences first
+        sentences = re.split(r'[.!?]+', text)
+        sentences = [s.strip() for s in sentences if s.strip()]
+        
+        # Calculate approximate words per phrase
+        total_words = sum(len(s.split()) for s in sentences)
+        words_per_phrase = total_words / target_phrases
+        
+        phrases = []
+        current_phrase = ""
+        current_words = 0
+        
+        for sentence in sentences:
+            sentence_words = len(sentence.split())
+            
+            if current_words + sentence_words <= words_per_phrase * 1.5 or not current_phrase:
+                current_phrase += sentence + ". "
+                current_words += sentence_words
+            else:
+                if current_phrase.strip():
+                    phrases.append(current_phrase.strip())
+                current_phrase = sentence + ". "
+                current_words = sentence_words
+        
+        if current_phrase.strip():
+            phrases.append(current_phrase.strip())
+        
+        return phrases
 
     def _count_subtitle_entries(self, srt_file):
         """Count the number of subtitle entries for timing context."""
@@ -1271,7 +1426,36 @@ Convert this transcript:"""
                             
             video_file = debug_result
 
-            # Step 9: Merge audio, video, and subtitles into final output
+            # Step 9: Resync subtitles to match animation timing (if video was rendered)
+            synced_srt_file = srt_file
+            if video_file and video_file != "rendered_successfully" and srt_file and transcript_file:
+                print(f"\n🎝 Step 9: Synchronizing subtitles with animation timing...")
+                
+                # Get actual audio duration if available, otherwise estimate from video
+                sync_audio_duration = audio_duration
+                if not sync_audio_duration and audio_file:
+                    sync_audio_duration = self.get_audio_duration(audio_file)
+                
+                if not sync_audio_duration:
+                    # Estimate from video file or use default
+                    sync_audio_duration = 448.25  # Default fallback
+                
+                # Resync subtitles to match animation structure
+                synced_srt_file = self.resync_subtitles_to_animation(
+                    transcript_file=transcript_file,
+                    audio_duration=sync_audio_duration,
+                    code_file=code_file,
+                    output_file=srt_file.replace('.srt', '_synced.srt')
+                )
+                
+                if synced_srt_file:
+                    print(f"✅ Subtitles synchronized to animation timing")
+                    # Use synced subtitles for final video
+                    srt_file = synced_srt_file
+                else:
+                    print(f"⚠️  Subtitle synchronization failed - using original subtitles")
+
+            # Step 10: Merge audio, video, and subtitles into final output
             final_video = video_file
             if audio_file and video_file:
                 # Create complete video with audio and subtitles
@@ -1294,7 +1478,11 @@ Convert this transcript:"""
             print(f"📄 Transcript: {transcript_file}")
             print(f"🎬 Animation: {code_file}")
             if srt_file:
-                print(f"📝 Subtitles: {srt_file}")
+                if synced_srt_file and synced_srt_file != srt_file:
+                    print(f"📝 Original Subtitles: {srt_file}")
+                    print(f"🎝 Synchronized Subtitles: {synced_srt_file}")
+                else:
+                    print(f"📝 Subtitles: {srt_file}")
             if final_video:
                 print(f"🎥 Final Video: {final_video}")
             else:
@@ -1305,6 +1493,7 @@ Convert this transcript:"""
                 'code_file': code_file,
                 'final_video': final_video,
                 'srt_file': srt_file,
+                'synced_srt_file': synced_srt_file if synced_srt_file and synced_srt_file != srt_file else None,
                 'success': final_video is not None
             }
 
