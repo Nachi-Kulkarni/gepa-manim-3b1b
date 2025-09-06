@@ -18,16 +18,261 @@ from transcript_generator import TranscriptGenerator
 from code_generator import CodeGenerator
 from kokoro_tts_integration import Kokoro82MGenerator
 
+class SelfRefinementSystem:
+    """Integrated self-refinement system for code improvement"""
+    
+    def __init__(self, model="openrouter/openai/gpt-5-mini"):
+        self.model = model
+        self.refinement_history = []
+        self.setup_model()
+    
+    def setup_model(self):
+        """Configure the LLM for refinement"""
+        api_key = os.getenv('OPENROUTER_API_KEY')
+        if not api_key:
+            raise ValueError("OPENROUTER_API_KEY environment variable not set")
+        
+        self.lm = dspy.LM(
+            model=self.model,
+            api_key=api_key,
+            temperature=1.0,
+            max_tokens=16000,
+            base_url="https://openrouter.ai/api/v1"
+        )
+    
+    def validate_code(self, code):
+        """Validate Manim code for common errors"""
+        errors = []
+        
+        # Common Manim errors to fix
+        if 'mob.clear()' in code:
+            errors.append("VGroup.clear() method doesn't exist - use mob.become(VGroup())")
+        
+        # Check for Title with match_underline parameter (more precise check)
+        import re
+        title_pattern = r'Title\([^)]*match_underline[^)]*\)'
+        if re.search(title_pattern, code):
+            errors.append("Title() doesn't accept match_underline parameter - remove it")
+        
+        if 'always_redraw' in code and 'clear_updaters' not in code:
+            errors.append("Missing clear_updaters() call for always_redraw objects")
+        
+        # Basic Python syntax check
+        try:
+            compile(code, '<string>', 'exec')
+        except SyntaxError as e:
+            errors.append(f"Python syntax error: {e}")
+        
+        return len(errors) == 0, errors
+    
+    def rate_code_quality(self, code, context):
+        """Rate code quality from 1-10 using LLM self-assessment"""
+        quality_prompt = f"""
+        Rate this Manim animation code quality from 1-10 based on:
+        1. Code correctness and absence of bugs
+        2. Manim API usage best practices  
+        3. Animation effectiveness and smoothness
+        4. Mathematical accuracy
+        5. Code readability and structure
+        
+        Context: {context}
+        
+        Code to rate:
+        {code}
+        
+        Provide only a numeric score from 1.0 to 10.0.
+        """
+        
+        with dspy.context(lm=self.lm):
+            class QualityRater(dspy.Signature):
+                """Rate code quality"""
+                code = dspy.InputField(desc="Code to rate")
+                context = dspy.InputField(desc="Context for the code")
+                quality_score = dspy.OutputField(desc="Quality score 1.0-10.0")
+            
+            rater = dspy.Predict(QualityRater)
+            result = rater(code=code, context=context)
+            
+            try:
+                return float(result.quality_score)
+            except:
+                return 5.0
+    
+    def refine_code(self, original_code, context, errors=None, error_info=None, iteration=1):
+        """Refine code using LLM with memory of previous attempts and actual error logs"""
+        
+        refinement_context = f"Refinement iteration {iteration}"
+        if self.refinement_history:
+            refinement_context += f"\nPrevious attempts: {len(self.refinement_history)} iterations"
+        
+        # Build error information from validation and/or rendering errors
+        error_details = []
+        if errors:
+            error_details.extend([f"- {error}" for error in errors])
+        
+        if error_info:
+            # Add actual rendering error logs
+            if error_info.get('stderr'):
+                error_details.append("RENDERING ERROR LOGS:")
+                # Extract relevant error information from stderr
+                stderr_lines = error_info['stderr'].split('\n')
+                for line in stderr_lines:
+                    if any(keyword in line.lower() for keyword in ['error', 'exception', 'traceback', 'failed']):
+                        error_details.append(f"  {line.strip()}")
+            
+            if error_info.get('exception'):
+                error_details.append(f"EXCEPTION: {error_info['exception']}")
+            
+            if error_info.get('traceback'):
+                error_details.append("TRACEBACK:")
+                traceback_lines = error_info['traceback'].split('\n')[:10]  # First 10 lines
+                for line in traceback_lines:
+                    if line.strip():
+                        error_details.append(f"  {line.strip()}")
+        
+        if not error_details:
+            error_details = ["No specific errors identified - general quality improvement needed"]
+        
+        refinement_prompt = f"""
+        You are an expert Manim animation developer debugging and improving your own code.
+        
+        ORIGINAL TASK: {context}
+        
+        CURRENT CODE ISSUES:
+        {chr(10).join(error_details)}
+        
+        REFINEMENT CONTEXT: {refinement_context}
+        
+        ORIGINAL CODE:
+        {original_code}
+        
+        REQUIREMENTS:
+        1. Fix all identified errors and bugs based on the actual error logs
+        2. Improve code quality and best practices
+        3. Optimize animation performance
+        4. Maintain 3Blue1Brown style
+        5. Ensure smooth, educational animations
+        
+        CRITICAL FIXES TO CONSIDER:
+        - Replace 'mob.clear()' with 'mob.become(VGroup())'
+        - Remove 'match_underline' parameter from Title() constructor - THIS IS CRITICAL
+        - Add 'mob.clear_updaters()' before scene transitions  
+        - Fix AttributeError issues (like VGroup methods)
+        - Ensure proper variable scope and cleanup
+        - Optimize always_redraw usage
+        - Fix any syntax or runtime errors shown in logs
+        
+        IMMEDIATE ACTION REQUIRED:
+        - If you see 'match_underline' in any Title() call, REMOVE IT immediately
+        - If you see 'mob.clear()', replace with 'mob.become(VGroup())'
+        - These are syntax errors that prevent rendering
+        
+        MANDATORY TEXT REPLACEMENTS:
+        1. Find: Title("([^"]+)", match_underline=True([^)]*)\) 
+           Replace: Title("\\1"\\2)
+        2. Find: mob\.clear\(\)
+           Replace: mob.become(VGroup())
+        
+        YOU MUST APPLY THESE EXACT REPLACEMENTS NO MATTER WHAT!
+        """
+        
+        with dspy.context(lm=self.lm):
+            class CodeRefiner(dspy.Signature):
+                """Refine and improve code"""
+                original_code = dspy.InputField(desc="Original code to refine")
+                context = dspy.InputField(desc="Refinement context and requirements")
+                refined_code = dspy.OutputField(desc="Improved and fixed code")
+            
+            refiner = dspy.Predict(CodeRefiner)
+            result = refiner(original_code=original_code, context=refinement_prompt)
+            
+            return result.refined_code
+    
+    def self_refine_loop(self, initial_code, context, max_iterations=3, error_info=None):
+        """Main self-refinement loop with memory and iterative improvement"""
+        current_code = initial_code
+        best_code = initial_code
+        best_score = 0.0
+        
+        print(f"🔄 Starting self-refinement loop (max {max_iterations} iterations)")
+        
+        for iteration in range(1, max_iterations + 1):
+            print(f"\n🔍 Refinement iteration {iteration}/{max_iterations}")
+            
+            # Validate current code
+            is_valid, errors = self.validate_code(current_code)
+            
+            # Rate code quality
+            quality_score = self.rate_code_quality(current_code, context)
+            
+            print(f"📊 Quality score: {quality_score}/10")
+            if errors:
+                print(f"⚠️  Found {len(errors)} errors: {', '.join(errors[:3])}")
+            
+            # Track this iteration
+            self.refinement_history.append({
+                'iteration': iteration,
+                'code': current_code,
+                'errors': errors,
+                'quality_score': quality_score,
+                'error_info': error_info
+            })
+            
+            # Update best code
+            if quality_score > best_score:
+                best_score = quality_score
+                best_code = current_code
+                print(f"🌟 New best code with score {quality_score}/10")
+            
+            # Check if we're done - only stop if code is valid (no errors) AND good quality
+            if is_valid and quality_score >= 8.0:
+                print(f"✅ Code meets quality threshold (≥8.0/10) and has no errors")
+                break
+            
+            # Always continue refining if there are errors, regardless of quality score
+            if errors:
+                print(f"🔧 {len(errors)} errors detected - must continue refining...")
+                # Refine the code with error information immediately
+                print(f"🔧 Refining code based on feedback...")
+                current_code = self.refine_code(current_code, context, errors, error_info, iteration + 1)
+                # Clear error_info for subsequent iterations (only use original rendering error)
+                error_info = None
+                continue  # Go to next iteration with refined code
+            
+            if iteration >= max_iterations:
+                print(f"⏹️  Reached max iterations ({max_iterations})")
+                break
+            
+            # Refine the code with error information
+            print(f"🔧 Refining code based on feedback...")
+            current_code = self.refine_code(current_code, context, errors, error_info, iteration + 1)
+            
+            # Clear error_info for subsequent iterations (only use original rendering error)
+            error_info = None
+        
+        # Validate the final code to get current errors
+        final_is_valid, final_errors = self.validate_code(current_code)
+        
+        return {
+            'final_code': current_code,
+            'quality_score': best_score,
+            'iterations': len(self.refinement_history),
+            'is_valid': final_is_valid,
+            'errors': final_errors
+        }
+
 class VideoGenerationPipeline:
     """Complete pipeline for generating educational videos from topics."""
 
-    def __init__(self, model="openrouter/moonshotai/kimi-k2-0905", use_tts=True):
+    def __init__(self, model="openrouter/openai/gpt-5-mini", use_tts=True):
         self.model = model
         self.use_tts = use_tts
         self.tts_generator = None
+        self.refinement_system = None
         self.setup_model()
         if use_tts:
             self.setup_tts()
+        self.setup_refinement()
 
     def setup_model(self):
         """Configure the language model for the pipeline."""
@@ -36,15 +281,15 @@ class VideoGenerationPipeline:
             raise ValueError("OPENROUTER_API_KEY environment variable not set")
 
         # Configure the model
-        lm = dspy.LM(
+        self.lm = dspy.LM(
             model=self.model,
             api_key=api_key,
-            temperature=0.5,
-            max_tokens=32000,
+            temperature=1.0,
+            max_tokens=16000,
             base_url="https://openrouter.ai/api/v1"
         )
 
-        dspy.configure(lm=lm)
+        dspy.configure(lm=self.lm)
         print(f"✅ Configured {self.model} for pipeline")
 
     def setup_tts(self):
@@ -58,6 +303,15 @@ class VideoGenerationPipeline:
             print("    Continuing without TTS - videos will be silent")
             self.use_tts = False
             self.tts_generator = None
+    
+    def setup_refinement(self):
+        """Initialize the self-refinement system"""
+        try:
+            self.refinement_system = SelfRefinementSystem(model=self.model)
+            print("✅ Self-refinement system ready")
+        except Exception as e:
+            print(f"⚠️  Self-refinement initialization failed: {e}")
+            self.refinement_system = None
 
     def generate_transcript(self, video_title):
         """Generate educational transcript using GEPA-optimized prompts."""
@@ -98,7 +352,7 @@ class VideoGenerationPipeline:
         return transcript
 
     def generate_animation_code(self, video_title, transcript):
-        """Generate synchronized Manim animation code from transcript."""
+        """Generate synchronized Manim animation code from transcript with self-refinement."""
         print(f"\n💻 Step 2: Generating synchronized animation code...")
 
         # Use enhanced code generator with scene management
@@ -122,364 +376,42 @@ class VideoGenerationPipeline:
         if reasoning:
             print(f"🧠 Reasoning preview: {reasoning[:200]}...")
 
-        return generated_code, reasoning
-
-    def judge_and_refine_code(self, initial_code, video_title, transcript, max_iterations=2):
-        """Self-refinement loop: Judge code quality and refine for better visual output"""
-        print(f"\n🎨 Step 2.2: Self-refinement loop (max {max_iterations} iterations)...")
-        
-        current_code = initial_code
-        refinement_history = []  # Track all attempts and feedback
-        
-        for iteration in range(max_iterations):
-            print(f"\n🔍 Refinement iteration {iteration + 1}/{max_iterations}")
+        # Apply self-refinement if available
+        if self.refinement_system:
+            print(f"\n🔄 Starting self-refinement process...")
+            refinement_context = f"Generate Manim animation for: {video_title}"
             
-            try:
-                # Build refinement history context
-                history_context = ""
-                if refinement_history:
-                    history_context = f"\n**REFINEMENT HISTORY** (CRITICAL - Don't repeat these approaches):\n"
-                    for i, hist in enumerate(refinement_history):
-                        history_context += f"Attempt {i+1}: Score {hist['score']} - {hist['feedback'][:200]}...\n"
-                        history_context += f"Changes made: {hist['changes'][:150]}...\n\n"
-                    history_context += "**DO NOT repeat the same suggestions. Try completely different approaches.**\n"
-
-                # Use the main model for judging and refinement
-                judge_prompt = f"""You are an expert Manim animation critic and educator. Analyze this generated Manim code and determine if it will create a high-quality educational video.
-
-EVALUATION CRITERIA:
-1. **Visual Clarity**: Are elements well-positioned and visible?
-2. **Timing**: Are animations paced appropriately for learning?
-3. **Educational Flow**: Does it follow the transcript narrative logically?
-4. **Scene Management**: Are elements properly introduced, used, and cleared?
-5. **Manim Best Practices**: Correct syntax, proper imports, scene inheritance?
-
-TRANSCRIPT CONTEXT:
-{transcript[:800]}...
-
-{history_context}
-
-CURRENT CODE:
-```python
-{current_code}
-```
-
-First, provide a SCORE from 1-10 for video quality potential.
-Then, if score < 8, provide SPECIFIC improvements that HAVEN'T been tried before:
-- Better framing and positioning (camera work, zoom levels)
-- Improved timing and pacing (animation duration, wait times)
-- Enhanced visual clarity (colors, sizes, contrast)
-- Better educational flow (narrative structure, transitions)
-- Technical fixes (API issues, syntax problems)
-
-If score >= 8, respond with "APPROVED - No refinement needed"
-
-Your response:"""
-
-                class CodeJudge(dspy.Signature):
-                    analysis_prompt = dspy.InputField(desc="Code analysis prompt with criteria")
-                    evaluation = dspy.OutputField(desc="Quality score and improvement suggestions")
-
-                judge = dspy.Predict(CodeJudge)
-                judge_result = judge(analysis_prompt=judge_prompt)
-                evaluation = judge_result.evaluation.strip()
-                
-                print(f"📊 Code evaluation: {evaluation[:200]}...")
-                
-                # Check if approved or needs refinement
-                if "APPROVED" in evaluation or "score: 10" in evaluation.lower() or "score: 9" in evaluation.lower() or "score: 8" in evaluation.lower():
-                    print(f"✅ Code approved after {iteration + 1} iteration(s)")
-                    break
-                
-                # Store current attempt in history
-                score_match = re.search(r'SCORE:\s*(\d+)', evaluation) or re.search(r'score:\s*(\d+)', evaluation.lower())
-                current_score = int(score_match.group(1)) if score_match else 6
-                
-                refinement_history.append({
-                    'iteration': iteration + 1,
-                    'score': current_score,
-                    'feedback': evaluation,
-                    'code': current_code,
-                    'changes': f"Iteration {iteration + 1} changes will be tracked"
-                })
-
-                # Refine the code based on evaluation
-                print(f"🔄 Refining code based on feedback...")
-                
-                # Build refinement context with history
-                refine_history = ""
-                if len(refinement_history) > 1:
-                    refine_history = f"\n**PREVIOUS ATTEMPTS** (Don't repeat these approaches):\n"
-                    for hist in refinement_history[:-1]:
-                        refine_history += f"- Attempt {hist['iteration']}: Score {hist['score']} - {hist['feedback'][:150]}...\n"
-                
-                refine_prompt = f"""Based on the evaluation feedback, improve this Manim animation code to create a better educational video.
-
-EVALUATION FEEDBACK:
-{evaluation}
-
-{refine_history}
-
-CURRENT CODE:
-```python
-{current_code}
-```
-
-**CRITICAL: Manim Community v0.19+ API Knowledge**
-
-**CAMERA OPERATIONS - REMOVED IN v0.19:**
-- ❌ `self.camera.frame.*` - DOES NOT EXIST, will cause AttributeError
-- ❌ `self.camera.animate.*` - DOES NOT EXIST, will cause AttributeError  
-- ✅ Alternative: Use mobject positioning, scene scaling, or remove camera operations
-
-**WORKING v0.19+ ALTERNATIVES:**
-- Instead of camera zoom: Use `mobject.animate.scale()` on specific objects
-- Instead of camera move: Position mobjects with `.move_to()`, `.shift()`
-- For framing: Use `VGroup` to group and position related objects
-
-**OTHER v0.19+ SYNTAX:**
-- ❌ `stroke_dasharray` parameter - Not supported
-- ❌ `*[list]` unpacking - Invalid syntax  
-- ❌ `.interpolate()` - Use `.blend()`
-- ✅ Proper syntax: `*list`, `[0]` not `[0)`, `.clear_updaters()`
-
-IMPROVEMENT INSTRUCTIONS:
-1. Address all issues mentioned in the feedback with NOVEL approaches
-2. If previous attempts focused on camera work, use mobject scaling/positioning instead
-3. If previous attempts changed timing, try different narrative structure  
-4. **NEVER use self.camera.frame or self.camera.animate - they don't exist in v0.19**
-5. Make SIGNIFICANT improvements, not minor tweaks
-6. Keep the same class name and overall structure
-
-Provide the substantially improved code:"""
-
-                class CodeRefiner(dspy.Signature):
-                    refinement_prompt = dspy.InputField(desc="Code refinement prompt with feedback")
-                    improved_code = dspy.OutputField(desc="Enhanced Manim animation code")
-
-                refiner = dspy.Predict(CodeRefiner)
-                refine_result = refiner(refinement_prompt=refine_prompt)
-                improved_code = refine_result.improved_code.strip()
-                
-                # Clean the improved code
-                if "```python" in improved_code:
-                    improved_code = improved_code.split("```python")[1]
-                    if "```" in improved_code:
-                        improved_code = improved_code.split("```")[0]
-                
-                current_code = improved_code
-                print(f"✅ Code refined ({len(current_code)} characters)")
-                
-            except Exception as e:
-                print(f"⚠️  Refinement iteration {iteration + 1} failed: {e}")
-                break
-        
-        print(f"🎨 Self-refinement complete")
-        return current_code
-
-    def debug_and_fix_code(self, code, error_output, video_title, max_attempts=2):
-        """Self-debugging loop: Analyze errors and fix code automatically"""
-        print(f"\n🔧 Step 4.1: Self-debugging loop (max {max_attempts} attempts)...")
-        
-        current_code = code
-        debug_history = []  # Track all debug attempts and errors
-        
-        for attempt in range(max_attempts):
-            print(f"\n🐛 Debug attempt {attempt + 1}/{max_attempts}")
+            refinement_result = self.refinement_system.self_refine_loop(
+                initial_code=generated_code,
+                context=refinement_context,
+                max_iterations=3
+            )
             
-            try:
-                # Build debug history context
-                history_context = ""
-                if debug_history:
-                    history_context = f"\n**DEBUG HISTORY** (Learn from previous failures):\n"
-                    for i, hist in enumerate(debug_history):
-                        history_context += f"Attempt {i+1}: {hist['error'][:100]}... → {hist['fix_attempted'][:100]}...\n"
-                    history_context += "**Try a DIFFERENT approach than previous attempts.**\n"
-
-                debug_prompt = f"""You are an expert Manim Community v0.19+ debugger. Analyze this EXACT error and fix the code.
-
-ERROR OUTPUT:
-{error_output}
-
-{history_context}
-
-CURRENT CODE:
-```python
-{current_code}
-```
-
-CRITICAL: The error shows the EXACT line and issue. Fix ONLY what's broken:
-
-**CRITICAL: Manim Community v0.19+ API Knowledge**
-
-**CAMERA OPERATIONS - REMOVED IN v0.19:**
-- ❌ `self.camera.frame.animate.*` - DOES NOT EXIST
-- ❌ `self.camera.animate.*` - DOES NOT EXIST  
-- ❌ `self.camera.frame.*` - DOES NOT EXIST
-- ✅ Alternative: Remove camera operations or use scene-level scaling
-
-**COMMON SYNTAX ISSUES:**
-- ❌ `[0)` - Wrong bracket type
-- ✅ `[0]` - Correct syntax
-- ❌ `*[list]` - Invalid unpacking
-- ✅ `*list` or `*(list)` - Correct unpacking
-
-**PARAMETER ISSUES:**
-- ❌ `stroke_dasharray` - Not supported in v0.19
-- ❌ `.interpolate()` - Use `.blend()`
-- ❌ `.remove_updater()` - Use `.clear_updaters()`
-
-**DEBUGGING STRATEGY:**
-1. Find the EXACT line mentioned in the traceback
-2. Check if it uses REMOVED v0.19+ API (especially camera operations)
-3. Replace with working equivalent or remove/comment out
-4. Fix syntax errors (brackets, unpacking, parameters)
-5. Keep all educational content unchanged
-
-**SPECIFIC ERROR ANALYSIS:**
-Look at the error traceback - it shows the exact file, line number, and error type. Most common: AttributeError for removed camera API.
-
-Provide ONLY the corrected code with minimal changes:"""
-
-                class CodeDebugger(dspy.Signature):
-                    debug_prompt = dspy.InputField(desc="Code debugging prompt with error details")
-                    fixed_code = dspy.OutputField(desc="Debugged and corrected Manim code")
-
-                debugger = dspy.Predict(CodeDebugger)
-                debug_result = debugger(debug_prompt=debug_prompt)
-                fixed_code = debug_result.fixed_code.strip()
-                
-                # Clean the fixed code
-                if "```python" in fixed_code:
-                    fixed_code = fixed_code.split("```python")[1]
-                    if "```" in fixed_code:
-                        fixed_code = fixed_code.split("```")[0]
-                
-                current_code = fixed_code
-                print(f"✅ Code debugged ({len(current_code)} characters)")
-                
-                # Store debug attempt in history
-                debug_history.append({
-                    'attempt': attempt + 1,
-                    'error': error_output[:200],
-                    'fix_attempted': fixed_code[:200],
-                    'success': True
-                })
-                
-                # Apply only minimal critical fixes to preserve audio/visual coherence
-                current_code = self._apply_minimal_critical_fixes(current_code)
-                
-                # Save the debugged code for testing
-                safe_title = self._sanitize_filename(video_title)
-                debug_file = f"{safe_title}_debug_attempt_{attempt + 1}.py"
-                with open(debug_file, 'w') as f:
-                    f.write(current_code)
-                
-                return current_code
-                
-            except Exception as e:
-                print(f"⚠️  Debug attempt {attempt + 1} failed: {e}")
-                # Store failed attempt in history
-                debug_history.append({
-                    'attempt': attempt + 1,
-                    'error': error_output[:200],
-                    'fix_attempted': f"Failed: {str(e)}",
-                    'success': False
-                })
-        
-        print(f"❌ All debug attempts exhausted - using last version")
-        return current_code
-
-    def _apply_minimal_critical_fixes(self, code):
-        """Apply only critical syntax fixes that prevent compilation - preserve visual coherence"""
-        import re
-        
-        # MINIMAL FIXES - Only fix what absolutely prevents code from running
-        critical_fixes = [
-            # Critical syntax errors that prevent compilation
-            (r'\[0\)', '[0]'),  # Fix bracket mismatch: [0) -> [0]
-            (r'\[1\)', '[1]'),  # Fix bracket mismatch: [1) -> [1] 
-            (r'\[([^]]+)\)', r'[\1]'),  # Fix any [content) -> [content]
-            (r'\*\[([^\]]+)\]', r'*(\1)'),  # Fix unpacking: *[...] -> *(...)
-        ]
-        
-        # Apply only critical syntax fixes
-        for pattern, replacement in critical_fixes:
-            code = re.sub(pattern, replacement, code)
-        
-        # Check if code has camera API issues and handle more intelligently
-        if 'self.camera.frame' in code or 'self.camera.animate' in code:
-            print("⚠️  Code contains camera API that may cause errors - letting AI debugger handle it intelligently")
-        
-        # Ensure proper imports
-        if 'from manim import *' not in code and 'import manim' not in code:
-            code = 'from manim import *\nimport numpy as np\n\n' + code
-        
-        return code
-
-    def render_video_with_debugging(self, code_file, video_title, quality="480p15"):
-        """Enhanced render with self-debugging on failure"""
-        print(f"\n🎬 Step 4: Rendering video with self-debugging...")
-        
-        # Try initial render
-        video_file = self.render_video(code_file, quality)
-        
-        if video_file:
-            return video_file
-        
-        # Read the current code for debugging
-        try:
-            with open(code_file, 'r') as f:
-                current_code = f.read()
-        except:
-            print("❌ Could not read code file for debugging")
-            return None
-        
-        # Get the last error output (we'll need to capture this in render_video)
-        last_error = getattr(self, '_last_render_error', 'Unknown rendering error')
-        
-        # Apply iterative debugging with multiple attempts
-        current_debug_code = current_code
-        debug_attempts = 0
-        max_debug_cycles = 3  # Allow up to 3 full debug cycles
-        global_debug_history = []  # Track across all cycles
-        
-        for cycle in range(max_debug_cycles):
-            print(f"\n🔄 Debug cycle {cycle + 1}/{max_debug_cycles}")
+            refined_code = refinement_result['final_code']
+            quality_score = refinement_result['quality_score']
+            iterations = refinement_result['iterations']
+            is_valid = refinement_result['is_valid']
             
-            # Apply debugging to current code with accumulated history
-            debugged_code = self.debug_and_fix_code(current_debug_code, last_error, video_title, max_attempts=2)
+            print(f"🎯 Refinement completed:")
+            print(f"   Quality score: {quality_score}/10")
+            print(f"   Iterations: {iterations}")
+            print(f"   Status: {'✅ Valid' if is_valid else '⚠️  Has issues'}")
             
-            # Store cycle results in global history
-            global_debug_history.append({
-                'cycle': cycle + 1,
-                'error': last_error[:150],
-                'code_length': len(debugged_code),
-                'changes': f"Cycle {cycle + 1} debugging applied"
-            })
-            
-            # Save debugged code and try rendering
-            debug_code_file = code_file.replace('.py', f'_debugged_cycle_{cycle + 1}.py')
-            with open(debug_code_file, 'w') as f:
-                f.write(debugged_code)
-            
-            print(f"🔄 Attempting render with debugged code (cycle {cycle + 1})...")
-            final_video = self.render_video(debug_code_file, quality)
-            
-            if final_video:
-                print(f"✅ Debugging successful after {cycle + 1} cycles - video rendered")
-                return final_video
-            
-            # If rendering failed, get the new error for next cycle
-            if hasattr(self, '_last_render_error'):
-                last_error = self._last_render_error
-                current_debug_code = debugged_code
-                print(f"⚠️  Cycle {cycle + 1} failed, trying next cycle with new error info")
+            # Use refined code only if it's valid (no errors)
+            if is_valid:
+                print(f"🌟 Using refined code (score: {quality_score}/10)")
+                generated_code = refined_code
+                reasoning += f"\n\n[Self-Refinement Applied: {iterations} iterations, final score: {quality_score}/10]"
             else:
-                break
+                print(f"❌ Refined code still has {len(refinement_result.get('errors', []))} unresolved errors:")
+                for error in refinement_result.get('errors', []):
+                    print(f"   • {error}")
+                print(f"⚠️  Cannot proceed with flawed code - stopping pipeline")
+                print(f"   Please fix the errors manually or increase refinement iterations")
+                # Do NOT use flawed code - return None to indicate failure
+                return None, f"Self-refinement failed to fix errors: {refinement_result.get('errors', [])}"
         
-        print(f"❌ All {max_debug_cycles} debug cycles exhausted - proceeding without video")
-        return None
+        return generated_code, reasoning
 
     def create_narration_script(self, transcript):
         """Convert transcript to narration script using Gemini 2.5 Flash Lite"""
@@ -495,21 +427,32 @@ Provide ONLY the corrected code with minimal changes:"""
             gemini_lm = dspy.LM(
                 model="openrouter/google/gemini-2.5-flash-lite",
                 api_key=gemini_api_key,
-                temperature=0.2,
-                max_tokens=8000,
+                temperature=0.1,  # Lower temperature for consistent cleaning
+                max_tokens=80000,
                 base_url="https://openrouter.ai/api/v1"
             )
 
-            # Create narration script conversion prompt
+            # Enhanced narration script conversion prompt
             narration_prompt = """Convert this educational transcript into a clean narration script for text-to-speech.
 
-REQUIREMENTS:
-1. Remove ALL content in [square brackets] - these are visual stage directions
-2. Remove ALL content in (parentheses) - these are scene notes
-3. Remove quotation marks around spoken text
-4. Convert mathematical notation to speakable format:
+REQUIREMENTS - Remove ALL of the following:
+1. ALL content in [square brackets] - visual stage directions, camera movements, animation descriptions
+2. ALL content in (parentheses) - scene notes, timing cues, director instructions, actor notes
+3. ALL music and sound cues including:
+   - "soft piano music plays/fades in/fades out"
+   - "gentle background music"
+   - "upbeat music"
+   - "dramatic pause"
+   - "sound effects"
+   - "transition music"
+   - "background sounds"
+   - "musical interlude"
+   - "silence"
+   - "beat"
+4. Remove ALL quotation marks around spoken text
+5. Convert mathematical notation to speakable format:
    - x² → "x squared"
-   - x³ → "x cubed"
+   - x³ → "x cubed" 
    - x⁴ → "x to the fourth power"
    - s² → "s squared"
    - a² + b² → "a squared plus b squared"
@@ -521,26 +464,38 @@ REQUIREMENTS:
    - β → "beta"
    - θ → "theta"
    - Δ → "delta"
-5. Keep only the actual narration content that should be spoken aloud
-6. Maintain natural speech flow and educational tone
-7. Remove any visual cues, camera directions, or animation notes
+6. Remove ALL visual cues, camera directions, animation notes, production instructions
+7. Remove ALL scene markers like "Scene 1:", "Cut to:", "Fade in:", "Fade out:"
+8. Remove ALL technical directions like "VOICEOVER:", "NARRATOR:", "ON SCREEN:"
+9. Keep ONLY the actual narration content that should be spoken aloud
+10. Maintain natural speech flow and educational tone
+11. Ensure clean, readable text with proper punctuation
 
-EXAMPLE:
-Input: [Scene opens] "The formula is a² + b² = c²" (pause for emphasis) [Show triangle]
+EXAMPLES:
+Input: [Scene opens with soft piano music] "The formula is a² + b² = c²" (pause for emphasis) [Show triangle with gentle background music]
 Output: The formula is a squared plus b squared equals c squared
+
+Input: [Upbeat music fades in] "Welcome to linear algebra!" (dramatic pause) [Show title animation]
+Output: Welcome to linear algebra!
+
+Input: (Soft piano tone) A dark canvas with a faint grid appears. [Crisp coordinate axis draws itself] Let's get comfortable with one of the simplest nonlinear shapes.
+Output: A dark canvas with a faint grid appears. Let's get comfortable with one of the simplest nonlinear shapes.
+
+Input: [Gentle background music fades out] "The vertex form gives us insight into the parabola's shape" [Show vertex highlighting]
+Output: The vertex form gives us insight into the parabola's shape
 
 Convert this transcript:"""
 
             # Use Gemini to convert transcript
             with dspy.context(lm=gemini_lm):
                 class NarrationConverter(dspy.Signature):
+                    """Convert educational transcript to clean narration script"""
                     transcript = dspy.InputField(desc="Educational transcript with stage directions")
                     narration_script = dspy.OutputField(desc="Clean narration script for TTS")
 
-                # Set instructions as signature docstring
-                NarrationConverter.__doc__ = narration_prompt
-                
-                converter = dspy.Predict(NarrationConverter)
+                EnhancedNarrationConverter = NarrationConverter.with_instructions(narration_prompt)
+                converter = dspy.Predict(EnhancedNarrationConverter)
+
                 result = converter(transcript=transcript)
                 narration_script = result.narration_script.strip()
 
@@ -598,19 +553,16 @@ Convert this transcript:"""
             print("🔇 TTS not available - skipping audio generation")
             return None
 
-        print(f"\n🎤 Step 2.4: Generating audio narration...")
+        print(f"\n🎤 Step 2.5: Generating audio narration...")
 
         try:
-            # Convert transcript to clean narration script
-            narration_script = self.create_narration_script(transcript)
-            
             # Create safe filename for audio
             safe_title = self._sanitize_filename(video_title)
             audio_file = f"{safe_title}_narration.wav"
 
-            # Generate audio with Kokoro-TTS using cleaned narration script
+            # Generate audio with Kokoro-TTS (af_heart voice)
             result = self.tts_generator.generate_audio(
-                text=narration_script,  # Use cleaned script instead of raw transcript
+                text=transcript,
                 voice='af_heart',
                 speed=1.0,
                 output_file=audio_file
@@ -681,15 +633,24 @@ Convert this transcript:"""
 
         return code_file, transcript_file
 
-    def render_video(self, code_file, quality="480p15"):
-        """Render the Manim animation video."""
+    def render_video(self, code_file, quality="480p15", debug_mode=False):
+        """Render the Manim animation video with error capture for debugging."""
         print(f"\n🎬 Step 4: Rendering video...")
+        
+        # Check if code file exists
+        if not Path(code_file).exists():
+            print(f"❌ Code file not found: {code_file}")
+            return None
+        
+        print(f"📁 Code file: {Path(code_file).absolute()}")
 
         # Extract scene class name from code
         scene_class = self._extract_scene_class(code_file)
         if not scene_class:
             print("❌ Could not find scene class in generated code")
             return None
+        
+        print(f"🎭 Scene class: {scene_class}")
 
         # Render command
         quality_map = {
@@ -699,56 +660,115 @@ Convert this transcript:"""
         }
 
         quality_flag = quality_map.get(quality, "-pql")
+        print(f"🎛️  Quality setting: {quality} (flag: {quality_flag})")
+
+        # Check if manim is available
+        try:
+            print("🔍 Checking Manim installation...")
+            subprocess.run(["manim", "--version"], capture_output=True, text=True, check=True)
+            print("✅ Manim is available")
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print("❌ Manim not found - please install Manim")
+            return None
 
         try:
             print(f"🚀 Rendering {scene_class} at {quality}...")
             cmd = [
                 "manim", quality_flag, code_file, scene_class
             ]
+            
+            print(f"📋 Command: {' '.join(cmd)}")
 
             # Run in virtual environment
-            if Path("venv_new/bin/activate").exists():
+            venv_path = Path("venv_new/bin/activate")
+            if venv_path.exists():
+                print(f"🐍 Using virtual environment: {venv_path.absolute()}")
                 cmd = ["bash", "-c", f"source venv_new/bin/activate && {' '.join(cmd)}"]
+            else:
+                print("⚠️  No virtual environment found - using system Python")
 
+            print("⏳ Starting rendering process...")
             result = subprocess.run(cmd, capture_output=True, text=True, cwd=".")
+            
+            print(f"📊 Return code: {result.returncode}")
+            
+            # Capture detailed error information for debugging
+            error_info = {
+                'return_code': result.returncode,
+                'stdout': result.stdout,
+                'stderr': result.stderr,
+                'command': ' '.join(cmd),
+                'code_file': code_file,
+                'scene_class': scene_class
+            }
+            
+            if result.stdout:
+                print(f"📄 STDOUT:\n{result.stdout}")
+            
+            if result.stderr:
+                print(f"📄 STDERR:\n{result.stderr}")
 
             if result.returncode == 0:
                 print("✅ Video rendered successfully!")
 
                 # Find the output video file
+                print("🔍 Looking for output video file...")
                 video_file = self._find_output_video(code_file, scene_class, quality)
                 if video_file:
                     print(f"🎥 Video location: {video_file}")
-                    return video_file
+                    print(f"📏 Video size: {Path(video_file).stat().st_size / (1024*1024):.2f} MB")
+                    return video_file, error_info
                 else:
                     print("⚠️  Video rendered but location not found")
-                    return "rendered_successfully"
+                    print("🔍 Checking media directory structure...")
+                    media_dir = Path("media")
+                    if media_dir.exists():
+                        print(f"📁 Media directory exists at: {media_dir.absolute()}")
+                        for item in media_dir.rglob("*.mp4"):
+                            print(f"📹 Found video file: {item.relative_to('.')}")
+                    else:
+                        print("❌ Media directory not found")
+                    return "rendered_successfully", error_info
             else:
-                print(f"❌ Rendering failed:")
-                print(f"STDOUT: {result.stdout}")
-                print(f"STDERR: {result.stderr}")
-                
-                # Store error for debugging system
-                self._last_render_error = f"STDOUT:\n{result.stdout}\n\nSTDERR:\n{result.stderr}"
-                return None
+                print(f"❌ Rendering failed with return code {result.returncode}")
+                return None, error_info
 
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Manim execution failed: {e}")
+            error_info = {
+                'return_code': e.returncode,
+                'stdout': e.stdout,
+                'stderr': e.stderr,
+                'exception': str(e)
+            }
+            print(f"📄 STDOUT: {e.stdout}")
+            print(f"📄 STDERR: {e.stderr}")
+            return None, error_info
         except Exception as e:
             print(f"❌ Rendering error: {e}")
-            return None
+            import traceback
+            error_info = {
+                'exception': str(e),
+                'traceback': traceback.format_exc(),
+                'error_type': type(e).__name__
+            }
+            print(f"📊 Full traceback:\n{traceback.format_exc()}")
+            return None, error_info
 
-    def generate_subtitles(self, transcript, video_title, estimated_duration=60):
-        """Generate SRT subtitle file from cleaned narration script (same as TTS audio)."""
-        print(f"\n📝 Step 4.5: Generating subtitles...")
+    def generate_subtitles(self, narration_script, video_title, estimated_duration=60):
+        """Generate SRT subtitle file from cleaned narration script."""
+        print(f"\n📝 Step 4.5: Generating subtitles from narration script...")
 
-        # Convert transcript to clean narration script (same as used for TTS)
-        narration_script = self.create_narration_script(transcript)
-        
-        # Break cleaned narration script into manageable chunks for subtitles
-        sentences = self._split_transcript_into_sentences(narration_script)
+        # Use the cleaned narration script instead of original transcript
+        # This ensures consistency between narration and subtitles
+        script_text = narration_script
+
+        # Break script into manageable chunks for subtitles
+        sentences = self._split_transcript_into_sentences(script_text)
 
         # Estimate timing based on reading speed (150-200 words per minute)
         words_per_minute = 175
-        total_words = len(narration_script.split())
+        total_words = len(script_text.split())
         actual_duration = max(estimated_duration, (total_words / words_per_minute) * 60)
 
         # Create subtitle entries
@@ -775,12 +795,141 @@ Convert this transcript:"""
 
         print(f"✅ Subtitles generated: {srt_file}")
         print(f"📊 {len(sentences)} subtitle entries, ~{actual_duration:.1f}s duration")
+        print(f"🎯 Using cleaned narration script (consistent with audio)")
 
         return srt_file
 
+    def _count_subtitle_entries(self, srt_file):
+        """Count the number of subtitle entries for timing context."""
+        try:
+            with open(srt_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            # Count subtitle entries (each starts with a number)
+            return len([line for line in content.split('\n\n') if line.strip() and line.strip()[0].isdigit()])
+        except:
+            return 0
+
+    def generate_animation_code_with_timing(self, video_title, transcript, narration_script, timing_context, srt_file):
+        """Generate synchronized Manim animation code with timing and subtitle context."""
+        print(f"\n💻 Step 5: Generating synchronized animation code with timing context...")
+
+        # Read subtitle file for timing reference
+        subtitle_content = ""
+        if srt_file and Path(srt_file).exists():
+            try:
+                with open(srt_file, 'r', encoding='utf-8') as f:
+                    subtitle_content = f.read()
+                print(f"📊 Loaded {self._count_subtitle_entries(srt_file)} subtitle timing cues")
+            except Exception as e:
+                print(f"⚠️  Could not read subtitle file: {e}")
+
+        # Enhanced prompt with timing context
+        enhanced_prompt = (
+            f"Generate a complete Manim animation that is perfectly synchronized with the provided narration.\n\n"
+            f"VIDEO TOPIC: {video_title}\n\n"
+            f"TRANSCRIPT (for content reference):\n{transcript}\n\n"
+            f"CLEAN NARRATION SCRIPT (for timing and content):\n{narration_script}\n\n"
+            f"{timing_context}\n\n"
+            f"SUBTITLE TIMING REFERENCE:\n{subtitle_content if subtitle_content else 'No subtitles available'}\n\n"
+            f"CRITICAL SYNCHRONIZATION REQUIREMENTS:\n"
+            f"1. TIMING MATCH: Animation timing MUST match the narration flow exactly\n"
+            f"2. VISUAL ALIGNMENT: Key visual elements should appear exactly when they are mentioned in the narration\n"
+            f"3. PACING: Use subtitle timing cues to pace animations appropriately\n"
+            f"4. DURATION: Total animation should match the audio duration ({timing_context.split('Audio duration: ')[1].split(chr(10))[0] if 'Audio duration:' in timing_context else 'unknown'})\n"
+            f"5. TRANSITIONS: Smooth transitions between topics as covered in the narration\n"
+            f"6. EMPHASIS: Highlight key concepts exactly when they are spoken about\n\n"
+            f"ANIMATION REQUIREMENTS:\n"
+            f"- Use 3Blue1Brown style: clean, educational, mathematically precise\n"
+            f"- Include proper updaters and cleanup for smooth animations\n"
+            f"- Add appropriate wait() calls for timing\n"
+            f"- Use fade in/out transitions between sections\n"
+            f"- Include mathematical notation and visual explanations\n"
+            f"- Ensure proper scene management with clear() calls between phases\n\n"
+            f"MANIM CODE STRUCTURE:\n"
+            f"1. Import all necessary modules\n"
+            f"2. Define scene class with proper name\n"
+            f"3. Set background color and styling\n"
+            f"4. Create clear phases matching narration flow\n"
+            f"5. Use ValueTrackers for dynamic elements\n"
+            f"6. Include proper updater management\n"
+            f"7. Add timing-appropriate wait() calls\n"
+            f"8. Clean up updaters between sections\n\n"
+            f"MANDATORY MANIM API RULES:\n"
+            f"- Title() constructor does NOT accept match_underline parameter\n"
+            f"- VGroup.clear() method does NOT exist - use mob.become(VGroup()) or mob.clear_updaters()\n"
+            f"- Always use proper updater cleanup with clear_updaters()\n"
+            f"- Use safe coordinate plane methods\n\n"
+            f"Generate the complete Manim animation code:"
+        )
+
+        # Use enhanced code generator with timing context
+        code_gen = CodeGenerator()  # Uses enhanced ULTIMATE_MANIM_PROMPT
+
+        with dspy.context(lm=self.lm):
+            class TimedAnimationGenerator(dspy.Signature):
+                """Generate timed Manim animation from transcript with narration sync"""
+                video_title = dspy.InputField(desc="Video topic/title")
+                transcript = dspy.InputField(desc="Educational transcript")
+                prompt_context = dspy.InputField(desc="Enhanced prompt with timing requirements")
+                animation_code = dspy.OutputField(desc="Complete Manim animation code")
+
+            # Add the timing context to the prompt
+            from code_generator import ULTIMATE_MANIM_PROMPT
+            context_with_timing = f"{ULTIMATE_MANIM_PROMPT}\n\n{enhanced_prompt}"
+
+            TimedAnimationGenerator = TimedAnimationGenerator.with_instructions(
+                "Generate complete Manim animation code that is perfectly synchronized with narration timing."
+            )
+            
+            generator = dspy.Predict(TimedAnimationGenerator)
+            result = generator(
+                video_title=video_title,
+                transcript=transcript,
+                prompt_context=context_with_timing
+            )
+
+            generated_code = result.animation_code
+            reasoning = f"Generated with timing context for {video_title}"
+
+            print(f"✅ Animation code generated ({len(generated_code)} characters)")
+            print(f"🧠 Reasoning preview: {reasoning[:200]}...")
+
+            # Apply self-refinement if available
+            if self.refinement_system:
+                print(f"🔄 Starting self-refinement process...")
+                refinement_result = self.refinement_system.self_refine_loop(
+                    initial_code=generated_code,
+                    context=f"Generate timed Manim animation for: {video_title}",
+                    max_iterations=3
+                )
+
+                refined_code = refinement_result['final_code']
+                quality_score = refinement_result['quality_score']
+                iterations = refinement_result['iterations']
+                is_valid = refinement_result['is_valid']
+
+                print(f"🎯 Refinement completed:")
+                print(f"   Quality score: {quality_score}/10")
+                print(f"   Iterations: {iterations}")
+                print(f"   Status: {'✅ Valid' if is_valid else '⚠️  Has issues'}")
+
+                # Use refined code only if it's valid (no errors)
+                if is_valid:
+                    print(f"🌟 Using refined code (score: {quality_score}/10)")
+                    generated_code = refined_code
+                    reasoning += f"\n\n[Self-Refinement Applied: {iterations} iterations, final score: {quality_score}/10]"
+                else:
+                    print(f"❌ Refined code still has {len(refinement_result.get('errors', []))} unresolved errors:")
+                    for error in refinement_result.get('errors', []):
+                        print(f"   • {error}")
+                    print(f"⚠️  Cannot proceed with flawed code - stopping pipeline")
+                    return None, f"Self-refinement failed to fix errors: {refinement_result.get('errors', [])}"
+
+            return generated_code, reasoning
+
     def add_subtitles_to_video(self, video_file, srt_file):
         """Add subtitles to video using ffmpeg."""
-        print(f"\n🎬 Step 5: Adding subtitles to video...")
+        print(f"\n🎬 Step 10: Adding subtitles to video...")
 
         if not video_file or video_file == "rendered_successfully":
             print("⚠️  No video file to add subtitles to")
@@ -823,9 +972,93 @@ Convert this transcript:"""
             print(f"❌ Error adding subtitles: {e}")
             return srt_file
 
+    def dry_run_check(self, code_file):
+        """Perform dry run compilation check to catch errors early."""
+        print(f"\n🔍 Step 5.5: Performing dry run compilation check...")
+        
+        try:
+            # Extract scene class name
+            scene_class = self._extract_scene_class(code_file)
+            if not scene_class:
+                print(f"⚠️  Could not find scene class in {code_file}")
+                return True  # Continue anyway
+            
+            # Run manim in dry mode (compilation only)
+            cmd = [
+                'manim', 
+                '--format', 'png',  # PNG format for dry run
+                '--disable_caching',
+                code_file,
+                scene_class
+            ]
+            
+            print(f"📋 Dry run command: {' '.join(cmd)}")
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+            
+            if result.returncode == 0:
+                print(f"✅ Dry run compilation successful")
+                return True
+            else:
+                print(f"❌ Dry run compilation failed:")
+                print(f"   Error: {result.stderr}")
+                return False
+                
+        except subprocess.TimeoutExpired:
+            print(f"⚠️  Dry run timed out - continuing anyway")
+            return True
+        except Exception as e:
+            print(f"⚠️  Dry run error: {e} - continuing anyway")
+            return True
+
+    def _auto_fix_common_issues(self, code):
+        """Automatically fix common Manim compilation issues."""
+        import re
+        
+        fixed_code = code
+        fixes_applied = []
+        
+        # Fix 1: Title() with match_underline parameter
+        title_pattern = r'Title\([^)]*match_underline=True[^)]*\)'
+        if re.search(title_pattern, code):
+            fixed_code = re.sub(
+                title_pattern,
+                lambda m: m.group(0).replace('match_underline=True', '').replace('(, ', '(').replace(', )', ')'),
+                fixed_code
+            )
+            fixes_applied.append("Removed match_underline parameter from Title()")
+        
+        # Fix 2: VGroup.clear() method (doesn't exist)
+        if 'mob.clear()' in fixed_code:
+            fixed_code = fixed_code.replace('mob.clear()', 'mob.become(VGroup())')
+            fixes_applied.append("Replaced mob.clear() with mob.become(VGroup())")
+        
+        # Fix 3: Unescaped ampersand in LaTeX
+        if '&' in fixed_code and '\\&' not in fixed_code:
+            # Only fix ampersands in Text/Title/MathTex contexts
+            latex_pattern = r'(Text|Title|MathTex)\([^)]*\)&([^)]*\)'
+            fixed_code = re.sub(
+                latex_pattern,
+                lambda m: m.group(0).replace('&', '\\&'),
+                fixed_code
+            )
+            if fixed_code != code:
+                fixes_applied.append("Escaped ampersand in LaTeX text")
+        
+        # Fix 4: Axes.add_coordinate_labels (method doesn't exist)
+        if 'add_coordinate_labels' in fixed_code:
+            fixed_code = fixed_code.replace('.add_coordinate_labels(', '.add(')
+            fixes_applied.append("Fixed add_coordinate_labels method call")
+        
+        if fixes_applied:
+            print(f"🔧 Applied automatic fixes:")
+            for fix in fixes_applied:
+                print(f"   • {fix}")
+        
+        return fixed_code
+
     def merge_audio_video(self, video_file, audio_file, srt_file=None):
         """Merge audio narration with video and optionally add subtitles"""
-        print(f"\n🎬 Step 6: Merging audio with video...")
+        print(f"\n🎬 Step 11: Merging audio with video...")
 
         if not video_file or not Path(video_file).exists():
             print("❌ No video file to merge audio with")
@@ -905,31 +1138,140 @@ Convert this transcript:"""
             # Step 1: Generate transcript
             transcript = self.generate_transcript(video_title)
 
-            # Step 2: Generate initial animation code
-            initial_code, reasoning = self.generate_animation_code(video_title, transcript)
+            # Step 2: Create clean narration script using Gemini 2.5 Flash Lite
+            narration_script = self.create_narration_script(transcript)
 
-            # Step 2.2: Self-refinement loop (judge and improve code quality)
-            refined_code = self.judge_and_refine_code(initial_code, video_title, transcript)
-
-            # Step 2.4: Generate audio narration (if TTS available)
+            # Step 3: Generate audio narration (if TTS available) - use cleaned script
             audio_file, audio_duration = None, None
             if self.use_tts:
-                audio_file, audio_duration = self.generate_audio(transcript, video_title)
+                audio_file, audio_duration = self.generate_audio(narration_script, video_title)
 
-            # Step 3: Save outputs (use refined code)
-            code_file, transcript_file = self.save_outputs(video_title, transcript, refined_code, reasoning, audio_file)
+            # Step 4: Generate subtitles from narration script for timing reference
+            estimated_duration = audio_duration if audio_duration else 60
+            srt_file = self.generate_subtitles(narration_script, video_title, estimated_duration)
 
-            # Step 4: Render video with self-debugging
-            video_file = self.render_video_with_debugging(code_file, video_title, render_quality)
+            # Step 5: Generate animation code with timing context
+            timing_context = (
+                f"TIMING CONTEXT FOR SYNCHRONIZATION:\n"
+                f"- Audio duration: {audio_duration or 'unknown'} seconds\n"
+                f"- Estimated video duration: {estimated_duration} seconds\n"
+                f"- Subtitle entries: {self._count_subtitle_entries(srt_file)} timing cues\n"
+                f"- Narration script length: {len(narration_script)} characters\n\n"
+                f"SYNCHRONIZATION REQUIREMENTS:\n"
+                f"- Animation timing should match narration flow\n"
+                f"- Key visual elements should align with spoken explanations\n"
+                f"- Use subtitle timing as reference for animation pacing\n"
+                f"- Ensure smooth transitions between topics\n"
+                f"- Match animation complexity to available time budget\n"
+            )
+            
+            code, reasoning = self.generate_animation_code_with_timing(
+                video_title, 
+                transcript, 
+                narration_script, 
+                timing_context,
+                srt_file
+            )
+            
+            # Check if refinement failed
+            if code is None:
+                print(f"❌ Animation code generation failed: {reasoning}")
+                return {
+                    'success': False,
+                    'error': f"Animation code generation failed: {reasoning}",
+                    'video_file': None,
+                    'audio_file': None,
+                    'subtitles_file': None
+                }
 
-            # Step 5: Generate subtitles (if requested)
-            srt_file = None
-            if add_subtitles:
-                # Use audio duration for better subtitle timing if available
-                estimated_duration = audio_duration if audio_duration else 60
-                srt_file = self.generate_subtitles(transcript, video_title, estimated_duration)
+            # Step 6: Save outputs
+            code_file, transcript_file = self.save_outputs(video_title, transcript, code, reasoning, audio_file)
+            
+            # Step 6.5: Perform dry run compilation check
+            dry_run_success = self.dry_run_check(code_file)
+            
+            # If dry run fails, try to fix common issues automatically
+            if not dry_run_success and self.refinement_system:
+                print(f"\n🔧 Dry run failed - attempting automatic fix...")
+                
+                # Read the current code
+                with open(code_file, 'r') as f:
+                    current_code = f.read()
+                
+                # Try to fix common issues automatically
+                fixed_code = self._auto_fix_common_issues(current_code)
+                
+                if fixed_code != current_code:
+                    print(f"🔧 Applied automatic fixes to code")
+                    with open(code_file, 'w') as f:
+                        f.write(fixed_code)
+                    
+                    # Retry dry run with fixed code
+                    dry_run_success = self.dry_run_check(code_file)
+                    
+                    if dry_run_success:
+                        print(f"✅ Automatic fixes successful - dry run passed")
+                    else:
+                        print(f"⚠️  Automatic fixes didn't resolve all issues")
+                else:
+                    print(f"⚠️  No automatic fixes applicable")
+            
+            if not dry_run_success:
+                print(f"⚠️  Dry run compilation failed - proceeding anyway but expect rendering issues")
 
-            # Step 6: Merge audio, video, and subtitles into final output
+            # Step 8: Debug render with error capture and refinement
+            print(f"\n🎬 Step 8: Debug rendering with error capture...")
+            
+            debug_result, error_info = self.render_video(code_file, render_quality, debug_mode=True)
+            
+            # If rendering failed, use error info for refinement
+            if debug_result is None and error_info and self.refinement_system:
+                print(f"\n🔧 Rendering failed - starting error-driven refinement...")
+                
+                # Read the current code
+                with open(code_file, 'r') as f:
+                    current_code = f.read()
+                
+                # Refine based on actual rendering errors
+                refinement_context = f"Generate Manim animation for: {video_title}"
+                refinement_result = self.refinement_system.self_refine_loop(
+                    initial_code=current_code,
+                    context=refinement_context,
+                    max_iterations=2,
+                    error_info=error_info
+                )
+                
+                refined_code = refinement_result['final_code']
+                quality_score = refinement_result['quality_score']
+                iterations = refinement_result['iterations']
+                is_valid = refinement_result['is_valid']
+                
+                print(f"🎯 Error-driven refinement completed:")
+                print(f"   Quality score: {quality_score}/10")
+                print(f"   Iterations: {iterations}")
+                print(f"   Status: {'✅ Valid' if is_valid else '⚠️  Has issues'}")
+                
+                # Save refined code and retry rendering only if valid
+                if is_valid:
+                    print(f"🌟 Retrying with refined code...")
+                    with open(code_file, 'w') as f:
+                        f.write(refined_code)
+                    
+                    # Retry rendering with refined code
+                else:
+                    print(f"⚠️  Refined code still has issues - cannot retry rendering")
+                    print(f"   Issues found: {refinement_result.get('errors', 'Unknown')}")
+                    print(f"   Quality score: {quality_score}/10 - too low for retry")
+                    debug_result, _ = self.render_video(code_file, render_quality, debug_mode=True)
+                    
+                    if debug_result:
+                        print(f"✅ Rendering successful after refinement!")
+                    else:
+                        print(f"⚠️  Still failing after refinement")
+                            
+            video_file = debug_result
+
+            # Step 9: Merge audio, video, and subtitles into final output
             final_video = video_file
             if audio_file and video_file:
                 # Create complete video with audio and subtitles
@@ -1050,7 +1392,7 @@ def main():
     """Main CLI interface."""
     parser = argparse.ArgumentParser(description='Generate educational videos from topics')
     parser.add_argument('topic', help='Video topic/title')
-    parser.add_argument('--model', default='openrouter/moonshotai/kimi-k2-0905',
+    parser.add_argument('--model', default='openrouter/openai/gpt-5-mini',
                        help='Language model to use')
     parser.add_argument('--quality', choices=['480p15', '720p30', '1080p60'],
                        default='480p15', help='Render quality')

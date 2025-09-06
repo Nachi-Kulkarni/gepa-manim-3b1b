@@ -1,0 +1,52 @@
+# Transcript for: explain complex numbers in detail
+
+# Transcript for: explain complex numbers in detail
+
+(Soft, curious tone. The camera settles on a dark background and a neatly drawn grid — our complex plane.)
+
+Let's start with a question: what is a complex number, really?
+
+On paper we write a complex number as a + bi. But don't let the letters distract you — this is simply a point in the plane. So the first thing we do is treat a + bi as an arrow from the origin to the point (a, b). Watch as a point appears and an arrow grows out of the origin to it. The horizontal axis is the real axis, the vertical is the imaginary axis. The number a + bi is the arrow.
+
+Now that arrow gives us immediate geometric language. Adding complex numbers is just vector addition. If I take a + bi and add c + di, place the arrow for c + di at the tip of the arrow for a + bi, and draw the diagonal — that diagonal is a + bi + (c + di). The animation shows the two arrows and how their tips combine into a third arrow. So addition is translation. Nothing magical — it's the same geometry as adding displacement vectors.
+
+Multiplication is where the plane reveals a richer, more interesting structure. What does it mean to multiply complex numbers? Let's build intuition slowly.
+
+First, multiplying by a real number stretches or shrinks the arrow. Multiply by 2, the arrow doubles in length; multiply by 0.5, it halves. So real scaling is radial scaling.
+
+But what about multiplying by i? Watch what happens when every point on the plane is multiplied by i: the entire plane rotates 90 degrees counterclockwise. Every arrow rotates without changing its length. So i acts like a 90-degree rotation operator. Multiplication by -1 flips the arrow 180 degrees. Multiplying by -i rotates 90 degrees clockwise.
+
+So multiplication, in general, does two things: it scales lengths and rotates directions. We can capture that neatly by switching to polar coordinates. Any nonzero complex number z can be written as r e^{iθ}, where r is the length (|z|) and θ is the angle the arrow makes with the real axis (arg z). In these terms, multiplication becomes obvious: (r1 e^{iθ1}) · (r2 e^{iθ2}) = (r1 r2) e^{i(θ1+θ2)}. Multiplying multiplies radii and adds angles. To show this visually, the animation highlights two arrows, shows their radii and angles, then demonstrates their product arrow appearing with radius r1·r2 and angle θ1+θ2.
+
+This polar expression is tightly tied to Euler's formula, e^{iθ} = cos θ + i sin θ. So an exponential with an imaginary exponent traces out a circle as θ varies. As θ increases linearly, the point moves around a circle centered at the origin. The animation draws a point moving around the unit circle as θ increases, and simultaneously shows e^{iθ} = cos θ + i sin θ decomposing into its real and imaginary parts.
+
+Now that we can multiply and think in terms of scaling and rotation, a whole family of visual phenomena becomes easy to understand.
+
+Powers: raise a number to a power n. In polar form, (r e^{iθ})^n = r^n e^{i nθ}. So raising to the second power squares the radius and doubles the angle. Let's look at a grid under the map z ↦ z^2. Watch the regular grid deform — radial lines and concentric circles map into new shapes. Points with different radii accelerate apart because radii are squared; angles are doubled so every petal, every wedge opens up twice as fast. You can see angles becoming steeper, certain symmetries emerging. This is an intuitive way to understand how the squaring map behaves on the plane.
+
+Roots are the reverse. The equation z^n = w has n solutions, equally spaced in angle, because you divide the angle by n and take the appropriate roots of the radius. Near the origin this is dramatic: small differences in angle get magnified when you raise to a power; conversely, taking roots compresses angles.
+
+Let's take a detour to complex conjugation. The conjugate of a + bi is a - bi — geometrically, it's the reflection of the point across the real axis. So conjugation flips the imaginary coordinate sign. It's a mirror operation, and it's linear over the reals, meaning it preserves addition and scalar (real) multiplication but it flips orientation since it reverses angles.
+
+What about division? It's multiplying by the reciprocal. In polar terms, divide by re^{iθ} by multiplying by 1/r and subtracting θ from the angle. So division is shrinking and rotating in the opposite sense.
+
+These geometric pictures directly explain why complex numbers are so powerful in solving problems. For example, consider quadratic equations. The solutions that look mysterious from a purely algebraic viewpoint are just points whose arrows satisfy certain geometric constraints — intersections of circles and lines in the plane. The "imaginary" part emerges because we're allowing rotation, not because the numbers are any less real in geometric meaning.
+
+Complex exponentials give an elegant way to encode oscillations. A sinusoid like cos ωt can be seen as the real part of e^{iωt}. When we add sinusoids or deal with phases in electrical engineering — phasors — we are really adding vectors that rotate at the same angular speed. The animation overlays a rotating vector and shows its projection on the real axis tracing out a cosine. This is the same trick that makes Fourier series and Fourier transforms so natural: decomposing complicated oscillations into rotating vectors (complex exponentials) of different frequencies.
+
+Now, let's return to functions of a complex variable. Instead of mapping the line to the line, we map the whole plane to the plane. Visualize a grid under a function like z ↦ 1/z. The grid near the origin explodes to the far-away region, and lines become circles; infinity and zero swap roles. The animation shows a small neighborhood being blown up, and a circle passing through the origin turning into a straight line. These visual effects tell you about poles, essential singularities, and branch cuts — but the core idea is geometric: functions warp and fold the plane in ways you can see.
+
+One last vivid illustration: consider z ↦ e^z for complex z. If z is purely real, e^z stretches; if z is purely imaginary, e^z moves you around the circle. Combine both and you get spirals — vertical strips in the z-plane map to annuli in the w-plane. The animation slides a rectangle in the domain and you see a spiral band appear in the codomain. That’s a beautiful geometric picture of how the complex exponential mixes growth and rotation.
+
+So to summarize the visual takeaways:
+- A complex number a + bi is an arrow in the plane. Addition is vector addition (translation).
+- Multiplication is scaling times rotation. In polar form, multiply radii and add angles.
+- Multiplying by i rotates by 90 degrees; multiplying by a negative reflects or rotates by 180 degrees.
+- Euler's formula links exponentials to sine and cosine and explains oscillations as rotating vectors.
+- Powers and roots act by multiplying/dividing angles and raising/taking powers of radii — maps like z^n produce very visual deformations of the grid.
+- Complex conjugation is reflection across the real axis; inversion z ↦ 1/z swaps near and far in a geometric way.
+- Many practical applications — solving equations, electrical engineering phasors, Fourier analysis — are simply geometric manipulations of these arrows.
+
+(As the narration winds down, the camera slowly pulls back from an animated grid that has been twisted, rotated, and colored to emphasize radii and angles.)
+
+If you can hold on to the picture of numbers as arrows that can be rotated and stretched, then the rest is mostly bookkeeping. And that geometric frame is what makes complex numbers feel less like a mysterious algebraic trick and more like an extension of the most familiar intuition about vectors and rotations. In the next episode we'll dig into complex functions more deeply — singularities, conformal maps, and why analytic functions preserve angles locally. But for now, play with the picture: add, rotate, multiply by i, square, and watch the plane respond. That's where the real intuition lives.

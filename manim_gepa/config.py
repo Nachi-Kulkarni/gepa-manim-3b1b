@@ -17,13 +17,17 @@ def openrouter_llm(model_name):
                 "X-Title": "ManimGEPA"
             }
         ),
-        model=model_name
+        model=model_name,
+        # GPT-5 Mini requires temperature=1.0 (fixed default)
+        temperature=1.0 if "gpt-5-mini" in model_name else 0.7,
+        # Enable high thinking for GPT-5 Mini
+        reasoning={"effort": "high", "exclude": False} if "gpt-5-mini" in model_name else None
     )
 
 def setup_models():
     """Set up and return the configured LLM models."""
     # Get model names from environment or use defaults
-    kimi_model = os.environ.get("KIMI_MODEL", "moonshotai/kimi-k2")
+    gpt5_mini_model = os.environ.get("GPT5_MINI_MODEL", "openai/gpt-5-mini")
     judge_model = os.environ.get("JUDGE_MODEL", "google/gemini-2.5-flash")
     
     # Check for API key
@@ -31,17 +35,17 @@ def setup_models():
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY not found in environment variables")
     
-    print(f"Using task model: {kimi_model}")
+    print(f"Using task model: {gpt5_mini_model}")
     print(f"Using judge model: {judge_model}")
     
     # Create model instances
-    kimi_lm = openrouter_llm(kimi_model)
+    gpt5_mini_lm = openrouter_llm(gpt5_mini_model)
     judge_lm = openrouter_llm(judge_model)
     
-    # Configure kimi as default in DSPy
-    dspy.configure(lm=kimi_lm)
+    # Configure GPT-5 Mini as default in DSPy
+    dspy.configure(lm=gpt5_mini_lm)
     
-    return kimi_lm, judge_lm
+    return gpt5_mini_lm, judge_lm
 
 def validate_environment():
     """Validate that all required environment variables are set."""
